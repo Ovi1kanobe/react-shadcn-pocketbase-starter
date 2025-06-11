@@ -4,6 +4,7 @@ import { useAuth } from "./hooks/useAuth";
 import Demo from "./pages/demo";
 import LoginPage from "./pages/login";
 import { Navigate, Route, Routes } from "react-router";
+import LogoutPage from "./pages/logout";
 
 function App() {
   const { user, fetched } = useAuth();
@@ -24,6 +25,7 @@ function App() {
     <div className="flex flex-col items-center justify-center min-h-screen gap-24 p-4">
       <Routes>
         <Route path="/login" element={user ? <Navigate to="/" /> : <LoginPage />} />
+        <Route path="/logout" element={<LogoutPage />} />
         <Route path="/" element={user ? <Demo /> : <Navigate to="/login" />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
