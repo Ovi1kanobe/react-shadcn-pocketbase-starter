@@ -23,10 +23,17 @@ This project is a small React 19 starter template that integrates [PocketBase](h
 The PocketBase instance URL is defined in `src/lib/pburl.ts`:
 
 ```ts
-const PBURL = "https://befthcc2024.firetailhosting.com";
+const PBURL = import.meta.env.PB_URL;
+if (!PBURL) {
+  throw new Error("PB_URL environment variable is not set");
+}
 ```
 
-Replace the value with the URL of your PocketBase server if you host your own instance.
+`PB_URL` must be provided at build time to point to your PocketBase server.
+The application throws an error if this variable is missing.
+
+`vite.config.ts` exposes any variable starting with `PB_` so `PB_URL` is
+available in the client at build time.
 
 ## Usage
 
