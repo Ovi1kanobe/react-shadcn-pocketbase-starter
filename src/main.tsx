@@ -1,5 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App.tsx";
 import { ClientContextProvider } from "./context/client.tsx";
@@ -9,13 +10,15 @@ import { TooltipProvider } from "./components/ui/tooltip.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Toaster position="top-center" reverseOrder={false} />
-    <TooltipProvider delayDuration={0}>
-      <ClientContextProvider>
-        <AuthContextProvider>
-          <App />
-        </AuthContextProvider>
-      </ClientContextProvider>
-    </TooltipProvider>
+    <BrowserRouter>
+      <Toaster position="top-center" reverseOrder={false} />
+      <TooltipProvider delayDuration={0}>
+        <ClientContextProvider>
+          <AuthContextProvider>
+            <App />
+          </AuthContextProvider>
+        </ClientContextProvider>
+      </TooltipProvider>
+    </BrowserRouter>
   </StrictMode>
 );
