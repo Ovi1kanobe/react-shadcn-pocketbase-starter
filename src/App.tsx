@@ -8,6 +8,8 @@ import AdminDemo from "./pages/admin-demo";
 import { Navigate, Route, Routes } from "react-router";
 import LogoutPage from "./pages/logout";
 import { useAdminAuth } from "./hooks/useAdminAuth";
+import AdminLayout from "./layouts/admin-layout";
+import UserLayout from "./layouts/user-layout";
 
 function App() {
   const { user, fetched } = useAuth();
@@ -34,8 +36,12 @@ function App() {
           element={admin ? <Navigate to="/admin" /> : <AdminLoginPage />}
         />
         <Route path="/logout" element={<LogoutPage />} />
-        <Route path="/admin" element={admin ? <AdminDemo /> : <Navigate to="/admin-login" />} />
-        <Route path="/" element={user ? <Demo /> : <Navigate to="/login" />} />
+        <Route element={<AdminLayout />}>
+          <Route path="/admin" element={<AdminDemo />} />
+        </Route>
+        <Route element={<UserLayout />}>
+          <Route path="/" element={<Demo />} />
+        </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </div>
