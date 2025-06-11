@@ -3,7 +3,7 @@ import "./App.css";
 import { useAuth } from "./hooks/useAuth";
 import Demo from "./pages/demo";
 import LoginPage from "./pages/login";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router";
 
 function App() {
   const { user, fetched } = useAuth();
