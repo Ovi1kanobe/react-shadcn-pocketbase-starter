@@ -22,7 +22,7 @@ function App() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen gap-24 p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen">
       <Routes>
         <Route path="/login" element={user ? <Navigate to="/" /> : <LoginPage />} />
         <Route path="/logout" element={<LogoutPage />} />

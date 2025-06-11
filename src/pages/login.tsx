@@ -10,6 +10,7 @@ import { GithubSignIn } from "../components/auth/github-sign-in";
 import { useAuth } from "../hooks/useAuth";
 import { InputOTPForm } from "../components/auth/otp-form";
 import { type AuthMethodsList } from "pocketbase";
+import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 
 function LoginPage() {
   const auth = useAuth();
@@ -109,14 +110,16 @@ function LoginPage() {
   return (
     <div className="h-screen flex flex-row w-screen gap-1 justify-center">
       <div className="w-full flex items-center justify-center">
+        <Card className="p-6 py-12">
+          <CardTitle className="font-bold text-center text-xl">Log in to your account</CardTitle>
+          <CardDescription>
+            Enter your email and password below to log in
+          </CardDescription>
+          <CardContent>
         <form
           onSubmit={handleSubmit}
           className="max-w-sm flex flex-col gap-2 justify-center items-center"
         >
-          <h1 className="font-bold text-center text-xl">Log in to your account</h1>
-          <p className="text-sm text-gray-500 text-center mb-6">
-            Enter your email and password below to log in
-          </p>
           <Input
             type="email"
             value={email}
@@ -164,6 +167,8 @@ function LoginPage() {
           )}
           {/* {auth.authMethods?.oauth2.providers.some((provider) => provider.name === "apple") && <GithubSignIn handleOAuth={handleOAuth} />} */}
         </form>
+        </CardContent>
+        </Card>
       </div>
       <InputOTPForm open={showOTPForm} setOpen={setShowOTPForm} className="" onSubmit={handleOTP} />
     </div>
