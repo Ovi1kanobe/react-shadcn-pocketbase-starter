@@ -383,9 +383,13 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
         console.debug("AuthStore changed:", token, record);
       }
       fetchCurrentUser(
-        () => {},
+        () => {
+          setFetched(true);
+          setUser(null);
+        },
         (user) => {
           setUser(user);
+          setFetched(true);
         }
       );
     });
