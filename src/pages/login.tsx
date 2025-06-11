@@ -1,5 +1,6 @@
 // src/pages/login.tsx
 import { useEffect, useState } from "react";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import toast from "react-hot-toast";
@@ -14,6 +15,7 @@ function LoginPage() {
   const auth = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState<boolean>(false);
   const [showOTPForm, setShowOTPForm] = useState<boolean>(false);
   const [otpId, setOtpId] = useState<string | undefined>(undefined);
@@ -121,12 +123,23 @@ function LoginPage() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="name@example.com"
           />
-          <Input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="*********"
-          />
+          <div className="relative w-full">
+            <Input
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="*********"
+              className="pr-10"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground"
+            >
+              {showPassword ? <EyeOffIcon className="size-4" /> : <EyeIcon className="size-4" />}
+              <span className="sr-only">Toggle password visibility</span>
+            </button>
+          </div>
           {showForgotPassword && (
             <p
               onClick={handleForgotPassword}
