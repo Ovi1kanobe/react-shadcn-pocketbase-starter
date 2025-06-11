@@ -5,6 +5,7 @@ import "./index.css";
 import App from "./App.tsx";
 import { ClientContextProvider } from "./context/client.tsx";
 import { AuthContextProvider } from "./context/auth.tsx";
+import { AdminAuthContextProvider } from "./context/adminAuth.tsx";
 import { Toaster } from "react-hot-toast";
 import { TooltipProvider } from "./components/ui/tooltip.tsx";
 
@@ -15,7 +16,9 @@ createRoot(document.getElementById("root")!).render(
       <TooltipProvider delayDuration={0}>
         <ClientContextProvider>
           <AuthContextProvider>
-            <App />
+            <AdminAuthContextProvider>
+              <App />
+            </AdminAuthContextProvider>
           </AuthContextProvider>
         </ClientContextProvider>
       </TooltipProvider>
