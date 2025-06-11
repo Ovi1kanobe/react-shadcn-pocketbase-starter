@@ -13,7 +13,7 @@ createRoot(document.getElementById("root")!).render(
     <TooltipProvider delayDuration={0}>
       <ClientContextProvider>
         <AuthContextProvider>
-            <App />
+          <App />
         </AuthContextProvider>
       </ClientContextProvider>
     </TooltipProvider>
