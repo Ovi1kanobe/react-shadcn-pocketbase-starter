@@ -195,7 +195,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     pb.authStore.clear();
     setUser(null);
     setExternalAuths(null);
-    setFetched(false);
+    setFetched(true);
   }, [pb]);
 
   const loginWithPassword = useCallback(
