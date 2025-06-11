@@ -1,6 +1,6 @@
 # AGENTS Instructions
 
-This repository uses Prettier and ESLint. It is intended to be a static web application built with React 19. It is a frontend for a pocketbase application. The purpose of this application
+This repository uses Prettier and ESLint. It is intended to be a static web application built with React 19 and React Router DOM v7. It is a frontend for a pocketbase application. The purpose of this application is to provide a foundation for building other projects off of.
 
 ## Programmatic checks
 

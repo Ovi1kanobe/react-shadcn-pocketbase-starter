@@ -44,15 +44,3 @@ npm run dev
 ```
 
 The application will be available at the URL printed in the terminal.
-
-## Routing
-
-This template does not include client side routing by default. To add
-navigation between pages you can install [React Router](https://reactrouter.com):
-
-```bash
-npm install react-router-dom
-```
-
-Wrap the providers in `src/main.tsx` with `BrowserRouter` and define your routes
-inside `src/App.tsx` using the `Routes` and `Route` components.
