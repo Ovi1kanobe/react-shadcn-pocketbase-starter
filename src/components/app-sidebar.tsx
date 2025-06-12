@@ -7,10 +7,13 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
+  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { Avatar } from "./ui/avatar";
+import { useAuth } from "@/hooks/useAuth";
 
 const items = [
   { title: "Home", to: "/", icon: Home },
@@ -20,8 +23,20 @@ const items = [
 ];
 
 export function AppSidebar() {
+  const { user } = useAuth();
   return (
     <Sidebar>
+      <SidebarHeader>
+        <div className="flex flex-row">
+          <Avatar className="" />
+          <div className="flex flex-row">
+            {/* Display avatar and make a loading animation until user shows up*/}
+            <p className="text-sm text-muted-foreground">
+              {user?.username ?? user?.email}'s account
+            </p>
+          </div>
+        </div>
+      </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Menu</SidebarGroupLabel>
