@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "types": "pocketbase-typegen --env --out src/lib/pocketbase-types.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
