@@ -112,62 +112,64 @@ function LoginPage() {
       <div className="w-full flex items-center justify-center">
         <Card className="p-6 py-12">
           <CardTitle className="font-bold text-center text-xl">Log in to your account</CardTitle>
-          <CardDescription>
-            Enter your email and password below to log in
-          </CardDescription>
+          <CardDescription>Enter your email and password below to log in</CardDescription>
           <CardContent>
-        <form
-          onSubmit={handleSubmit}
-          className="max-w-sm flex flex-col gap-2 justify-center items-center"
-        >
-          <Input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="name@example.com"
-          />
-          <div className="relative w-full">
-            <Input
-              type={showPassword ? "text" : "password"}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="*********"
-              className="pr-10"
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword((prev) => !prev)}
-              className="absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground"
+            <form
+              onSubmit={handleSubmit}
+              className="max-w-sm flex flex-col gap-2 justify-center items-center"
             >
-              {showPassword ? <EyeOffIcon className="size-4" /> : <EyeIcon className="size-4" />}
-              <span className="sr-only">Toggle password visibility</span>
-            </button>
-          </div>
-          {showForgotPassword && (
-            <p
-              onClick={handleForgotPassword}
-              className="text-red-500 text-sm underline decoration-red-500 cursor-pointer"
-            >
-              Forgot Password? Click Here to reset it.
-            </p>
-          )}
-          <Button className="w-full" type="submit">
-            Sign In with Email
-          </Button>
-          <div className="items-center gap-1 text-xs text-gray-500">
-            <Separator />
-            OR CONTINUE WITH
-            <Separator />
-          </div>
-          {authMethods?.oauth2.providers.some((provider) => provider.name === "google") && (
-            <GoogleSignIn handleOAuth={handleOAuth} />
-          )}
-          {authMethods?.oauth2.providers.some((provider) => provider.name === "github") && (
-            <GithubSignIn handleOAuth={handleOAuth} />
-          )}
-          {/* {auth.authMethods?.oauth2.providers.some((provider) => provider.name === "apple") && <GithubSignIn handleOAuth={handleOAuth} />} */}
-        </form>
-        </CardContent>
+              <Input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="name@example.com"
+              />
+              <div className="relative w-full">
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="*********"
+                  className="pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground"
+                >
+                  {showPassword ? (
+                    <EyeOffIcon className="size-4" />
+                  ) : (
+                    <EyeIcon className="size-4" />
+                  )}
+                  <span className="sr-only">Toggle password visibility</span>
+                </button>
+              </div>
+              {showForgotPassword && (
+                <p
+                  onClick={handleForgotPassword}
+                  className="text-red-500 text-sm underline decoration-red-500 cursor-pointer"
+                >
+                  Forgot Password? Click Here to reset it.
+                </p>
+              )}
+              <Button className="w-full" type="submit">
+                Sign In with Email
+              </Button>
+              <div className="items-center gap-1 text-xs text-gray-500">
+                <Separator />
+                OR CONTINUE WITH
+                <Separator />
+              </div>
+              {authMethods?.oauth2.providers.some((provider) => provider.name === "google") && (
+                <GoogleSignIn handleOAuth={handleOAuth} />
+              )}
+              {authMethods?.oauth2.providers.some((provider) => provider.name === "github") && (
+                <GithubSignIn handleOAuth={handleOAuth} />
+              )}
+              {/* {auth.authMethods?.oauth2.providers.some((provider) => provider.name === "apple") && <GithubSignIn handleOAuth={handleOAuth} />} */}
+            </form>
+          </CardContent>
         </Card>
       </div>
       <InputOTPForm open={showOTPForm} setOpen={setShowOTPForm} className="" onSubmit={handleOTP} />
