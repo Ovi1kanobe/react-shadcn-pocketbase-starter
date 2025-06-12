@@ -1,7 +1,8 @@
-import { Navigate, Outlet } from "react-router";
-import { Home, CreditCard, User, LogOut, User2Icon, ChevronDown } from "lucide-react";
+import { Navigate, Outlet, Link } from "react-router";
+import { Home, CreditCard, User, LogOut, User2Icon, Settings } from "lucide-react";
 
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import SidebarHeaderItem from "@/components/sidebar-header-item";
 
 import { useAuth } from "@/hooks/useAuth";
 import AppSidebar, { type NavItem } from "@/components/app-sidebar";
@@ -17,17 +18,35 @@ function UserHeader() {
   const { user } = useAuth();
   return (
     <Popover>
-      <PopoverTrigger className="w-full">
-        <div className="flex flex-row space-x-2 items-end justify-start hover:bg-gray-100 rounded-sm p-2 cursor-pointer hover:scale-105 transition-all group/header">
-          <User2Icon />
-          <p className="text-sm text-muted-foreground">{user?.username ?? user?.email}</p>
-          <ChevronDown className="h-3/4 group-hover/header:translate-y-1 transition-all" />
-        </div>
+      <PopoverTrigger asChild>
+        <SidebarHeaderItem
+          className="w-full"
+          icon={User2Icon}
+          label={user?.username ?? user?.email}
+        />
       </PopoverTrigger>
-      <PopoverContent className="p-1  ml-2">
-        <div className="hover:bg-gray-100 rounded-sm p-2 cursor-pointer transition-all">
-          <p>Settings</p>
-        </div>
+      <PopoverContent className="p-1 ml-2 space-y-1">
+        <Link
+          to="/profile"
+          className="hover:bg-gray-100 flex items-center gap-2 rounded-sm p-2 transition-all"
+        >
+          <User className="size-4" />
+          <span>Profile</span>
+        </Link>
+        <Link
+          to="/account"
+          className="hover:bg-gray-100 flex items-center gap-2 rounded-sm p-2 transition-all"
+        >
+          <CreditCard className="size-4" />
+          <span>Account</span>
+        </Link>
+        <Link
+          to="/settings"
+          className="hover:bg-gray-100 flex items-center gap-2 rounded-sm p-2 transition-all"
+        >
+          <Settings className="size-4" />
+          <span>Settings</span>
+        </Link>
       </PopoverContent>
     </Popover>
   );

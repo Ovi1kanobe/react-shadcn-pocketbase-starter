@@ -1,7 +1,9 @@
 import { Navigate, Outlet } from "react-router";
-import { ChevronDown, Home, LogOut, User2Icon } from "lucide-react";
+import { Home, LogOut, User2Icon, User, CreditCard, Settings } from "lucide-react";
 
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import SidebarHeaderItem from "@/components/sidebar-header-item";
+import { Link } from "react-router";
 
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import AppSidebar, { type NavItem } from "@/components/app-sidebar";
@@ -15,17 +17,31 @@ function AdminHeader() {
   const { admin } = useAdminAuth();
   return (
     <Popover>
-      <PopoverTrigger className="w-full">
-        <div className="flex flex-row space-x-2 items-end justify-start hover:bg-gray-100 rounded-sm p-2 cursor-pointer hover:scale-105 transition-all group/header">
-          <User2Icon />
-          <p className="text-sm text-muted-foreground">{admin?.email}</p>
-          <ChevronDown className="h-3/4 group-hover/header:translate-y-1 transition-all" />
-        </div>
+      <PopoverTrigger asChild>
+        <SidebarHeaderItem className="w-full" icon={User2Icon} label={admin?.email} />
       </PopoverTrigger>
-      <PopoverContent className="p-1  ml-2">
-        <div className="hover:bg-gray-100 rounded-sm p-2 cursor-pointer transition-all">
-          <p>Settings</p>
-        </div>
+      <PopoverContent className="p-1 ml-2 space-y-1">
+        <Link
+          to="/profile"
+          className="hover:bg-gray-100 flex items-center gap-2 rounded-sm p-2 transition-all"
+        >
+          <User className="size-4" />
+          <span>Profile</span>
+        </Link>
+        <Link
+          to="/account"
+          className="hover:bg-gray-100 flex items-center gap-2 rounded-sm p-2 transition-all"
+        >
+          <CreditCard className="size-4" />
+          <span>Account</span>
+        </Link>
+        <Link
+          to="/settings"
+          className="hover:bg-gray-100 flex items-center gap-2 rounded-sm p-2 transition-all"
+        >
+          <Settings className="size-4" />
+          <span>Settings</span>
+        </Link>
       </PopoverContent>
     </Popover>
   );
