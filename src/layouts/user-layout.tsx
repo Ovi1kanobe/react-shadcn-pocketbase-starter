@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router";
-import { Home, CreditCard, User, LogOut, User2Icon } from "lucide-react";
+import { Home, CreditCard, User, LogOut, User2Icon, ChevronDown } from "lucide-react";
 
 import { useAuth } from "@/hooks/useAuth";
 import AppSidebar, { type NavItem } from "@/components/app-sidebar";
@@ -14,9 +14,10 @@ const navItems: NavItem[] = [
 function UserHeader() {
   const { user } = useAuth();
   return (
-    <div className="flex flex-row space-x-2 items-end justify-start hover:bg-gray-100 rounded-sm p-2 cursor-pointer hover:scale-105 transition-all">
+    <div className="flex flex-row space-x-2 items-end justify-start hover:bg-gray-100 rounded-sm p-2 cursor-pointer hover:scale-105 transition-all group/header">
       <User2Icon />
       <p className="text-sm text-muted-foreground">{user?.username ?? user?.email}</p>
+      <ChevronDown className="h-3/4 group-hover/header:translate-y-1 transition-all" />
     </div>
   );
 }
