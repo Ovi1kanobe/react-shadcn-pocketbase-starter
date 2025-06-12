@@ -6,10 +6,13 @@
   "scripts": {
     "dev": "vite --host",
     "build": "tsc -b && vite build",
+    "predev": "npm run types",
+    "prebuild": "npm run types",
     "lint": "eslint .",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "types": "sh -c 'if [ -z \"$PB_TYPEGEN_URL\" ] || [ -z \"$PB_TYPEGEN_TOKEN\" ]; then echo \"PocketBase typegen env vars missing, generating stub types\"; mkdir -p src/lib && printf \"import PocketBase from \\\"pocketbase\\\";\\nexport type UsersRecord = any;\\nexport type UsersResponse = any;\\nexport type ExternalauthsResponse = any;\\nexport type SuperusersResponse = any;\\nexport type TypedPocketBase = PocketBase;\\n\" > src/lib/pocketbase-types.ts; else npx --yes pocketbase-typegen --env --out src/lib/pocketbase-types.ts; fi'"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",

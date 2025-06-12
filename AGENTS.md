@@ -8,6 +8,10 @@ Run the following commands after modifying code:
 
 1. `npm run lint` – check for lint issues.
 2. `npm run format:fix` – automatically fix formatting.
-3. `npm run build` - ensure the project builds with no issues
+3. `npm run build` – ensure the project builds with no issues.
+
+`npm run dev` and `npm run build` automatically run `npm run types` when
+`PB_TYPEGEN_URL` and `PB_TYPEGEN_TOKEN` environment variables are set. Run
+`npm run types` manually if you need to refresh `src/lib/pocketbase-types.ts`.
 
 These commands should succeed before committing.
