@@ -12,7 +12,6 @@ function UserLayout() {
   }
 
   return (
-    <SidebarProvider>
       <div className="flex min-h-screen">
         <AppSidebar />
         <div className="flex flex-1 flex-col">
@@ -32,7 +31,6 @@ function UserLayout() {
           </main>
         </div>
       </div>
-    </SidebarProvider>
   );
 }
 
