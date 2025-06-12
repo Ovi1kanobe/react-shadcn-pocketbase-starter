@@ -16,23 +16,37 @@ This project is a small React 19 starter template that integrates [PocketBase](h
    npm run lint
    npm run format:fix
    npm run build
+```
+
+3. Configure the PocketBase type generation environment variables so the client
+   types can be kept in sync with the server:
+
+   ```bash
+   export PB_TYPEGEN_URL=https://example.com
+   export PB_TYPEGEN_TOKEN=eyJhbGciOiJI...
    ```
+
+   These variables are used by the `pocketbase-typegen` tool.
+   The `npm run dev` and `npm run build` scripts automatically
+   invoke `npm run types` to refresh `src/lib/pocketbase-types.ts` when these
+   variables are set. You can run `npm run types` manually at any time.
+
 
 ## Configuration
 
 The PocketBase instance URL is defined in `src/lib/pburl.ts`:
 
 ```ts
-const PBURL = import.meta.env.PB_URL;
+const PBURL = import.meta.env.VITE_PB_URL;
 if (!PBURL) {
   throw new Error("PB_URL environment variable is not set");
 }
 ```
 
-`PB_URL` must be provided at build time to point to your PocketBase server.
+`VITE_PB_URL` must be provided at build time to point to your PocketBase server.
 The application throws an error if this variable is missing.
 
-`vite.config.ts` exposes any variable starting with `PB_` so `PB_URL` is
+`vite.config.ts` exposes any variable starting with `VITE_` so `VITE_PB_URL` is
 available in the client at build time.
 
 ## Usage
@@ -44,15 +58,3 @@ npm run dev
 ```
 
 The application will be available at the URL printed in the terminal.
-
-## Routing
-
-This template does not include client side routing by default. To add
-navigation between pages you can install [React Router](https://reactrouter.com):
-
-```bash
-npm install react-router-dom
-```
-
-Wrap the providers in `src/main.tsx` with `BrowserRouter` and define your routes
-inside `src/App.tsx` using the `Routes` and `Route` components.

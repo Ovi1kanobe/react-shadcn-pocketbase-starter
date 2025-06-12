@@ -1,27 +1,23 @@
-import { Link, Navigate, Outlet } from "react-router";
+import { Navigate, Outlet } from "react-router";
 import { useAuth } from "@/hooks/useAuth";
-import { Button } from "@/components/ui/button";
+
+import AppSidebar from "@/components/app-sidebar";
 
 function UserLayout() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
 
   if (!user) {
     return <Navigate to="/login" replace />;
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <header className="flex items-center justify-between border-b p-4">
-        <Link to="/" className="font-semibold">
-          Home
-        </Link>
-        <Button variant="outline" size="sm" onClick={logout}>
-          Log out
-        </Button>
-      </header>
-      <main className="flex flex-1 flex-col items-center">
-        <Outlet />
-      </main>
+    <div className="flex min-h-screen">
+      <AppSidebar />
+      <div className="flex flex-1 flex-col">
+        <main className="flex flex-1 flex-col items-center">
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 }
