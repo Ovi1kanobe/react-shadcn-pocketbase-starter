@@ -31,14 +31,13 @@ function AdminLoginPage() {
         <Card className="p-6 py-12">
           <CardTitle className="font-bold text-center text-xl">Admin Login</CardTitle>
           <CardDescription>
-            Enter your admin credentials below to log in.<br /> 
+            Enter your admin credentials below to log in.
+            <br />
             <Link to="/login" className="text-sm text-blue-600 font-semibold hover:underline">
-            <span className="cursor-pointer">
-              Not an admin? Click here for user login.
-            </span>
-          </Link>
+              <span className="cursor-pointer">Not an admin? Click here for user login.</span>
+            </Link>
           </CardDescription>
-          
+
           <CardContent>
             <form
               onSubmit={handleSubmit}
