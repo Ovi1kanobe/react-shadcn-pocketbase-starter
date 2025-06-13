@@ -1,7 +1,8 @@
 import { Navigate, Outlet } from "react-router";
-import { ChevronDown, Home, LogOut, User2Icon } from "lucide-react";
+import { ChevronDown, Home, LogOut, User2Icon, Settings } from "lucide-react";
 
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import PopoverMenuItem from "@/components/popover-menu-item";
 
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import AppSidebar, { type NavItem } from "@/components/app-sidebar";
@@ -22,10 +23,10 @@ function AdminHeader() {
           <ChevronDown className="h-3/4 group-hover/header:translate-y-1 transition-all" />
         </div>
       </PopoverTrigger>
-      <PopoverContent className="p-1  ml-2">
-        <div className="hover:bg-gray-100 rounded-sm p-2 cursor-pointer transition-all">
-          <p>Settings</p>
-        </div>
+      <PopoverContent className="p-1  ml-2 flex flex-col space-y-1">
+        <PopoverMenuItem to="/settings" icon={Settings}>
+          Settings
+        </PopoverMenuItem>
       </PopoverContent>
     </Popover>
   );
