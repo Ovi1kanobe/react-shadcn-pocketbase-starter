@@ -26,6 +26,10 @@ function RegisterPage() {
       password,
       confirmPassword,
       (error) => {
+        if (error.status === 400) {
+          toast.error("User already exists");
+          return;
+        }
         toast.error(error.response.message);
       },
       () => {
