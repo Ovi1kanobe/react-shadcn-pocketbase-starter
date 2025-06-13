@@ -4,34 +4,48 @@ import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import toast from "react-hot-toast";
 import { Card, CardContent, CardDescription, CardFooter, CardTitle } from "@/components/ui/card";
-import { useAdminAuth } from "../hooks/useAdminAuth";
-import { Link } from "react-router";
+import { useAuth } from "../hooks/useAuth";
+import { Link, useNavigate } from "react-router";
+import { PasswordStrength } from "../components/auth/password-strength";
 
-function AdminLoginPage() {
-  const { loginWithPassword } = useAdminAuth();
+function RegisterPage() {
+  const auth = useAuth();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    loginWithPassword(
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+    auth.register(
       email,
       password,
+      confirmPassword,
       (error) => {
+        if (error.status === 400) {
+          toast.error("User already exists");
+          return;
+        }
         toast.error(error.response.message);
       },
-      () => {}
+      () => {
+        toast.success("Registration successful");
+        navigate("/login", { replace: true });
+      }
     );
   };
 
   return (
-    <div className="h-screen flex flex-row w-screen gap-1 justify-center ">
-      <div className="w-full flex items-center justify-center ">
+    <div className="h-screen flex flex-row w-screen gap-1 justify-center">
+      <div className="w-full flex items-center justify-center">
         <Card className="p-6 py-12">
-          <CardTitle className="font-bold text-center text-xl">Admin Login</CardTitle>
-          <CardDescription>Enter your admin credentials below to log in.</CardDescription>
-
+          <CardTitle className="font-bold text-center text-xl">Create an account</CardTitle>
+          <CardDescription>Enter your email and password below to register.</CardDescription>
           <CardContent>
             <form
               onSubmit={handleSubmit}
@@ -64,14 +78,37 @@ function AdminLoginPage() {
                   <span className="sr-only">Toggle password visibility</span>
                 </button>
               </div>
+
+              <div className="relative w-full">
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder="Confirm password"
+                  className="pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground"
+                >
+                  {showPassword ? (
+                    <EyeOffIcon className="size-4" />
+                  ) : (
+                    <EyeIcon className="size-4" />
+                  )}
+                  <span className="sr-only">Toggle password visibility</span>
+                </button>
+              </div>
               <Button className="w-full" type="submit">
-                Sign In
+                Register
               </Button>
             </form>
+            <PasswordStrength password={password} />
           </CardContent>
           <CardFooter>
             <Link to="/login" className="text-sm text-blue-600 font-semibold hover:underline">
-              <span className="cursor-pointer">Not an admin? Click here for user login.</span>
+              <span className="cursor-pointer">Already have an account? Click here to login.</span>
             </Link>
           </CardFooter>
         </Card>
@@ -80,4 +117,4 @@ function AdminLoginPage() {
   );
 }
 
-export default AdminLoginPage;
+export default RegisterPage;

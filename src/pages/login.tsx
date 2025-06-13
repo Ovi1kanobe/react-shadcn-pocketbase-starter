@@ -10,7 +10,8 @@ import { GithubSignIn } from "../components/auth/github-sign-in";
 import { useAuth } from "../hooks/useAuth";
 import { InputOTPForm } from "../components/auth/otp-form";
 import { type AuthMethodsList } from "pocketbase";
-import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardTitle } from "@/components/ui/card";
+import { Link } from "react-router";
 
 function LoginPage() {
   const auth = useAuth();
@@ -161,15 +162,20 @@ function LoginPage() {
                 OR CONTINUE WITH
                 <Separator />
               </div>
-              {authMethods?.oauth2.providers.some((provider) => provider.name === "google") && (
+              {authMethods?.oauth2?.providers?.some((provider) => provider.name === "google") && (
                 <GoogleSignIn handleOAuth={handleOAuth} />
               )}
-              {authMethods?.oauth2.providers.some((provider) => provider.name === "github") && (
+              {authMethods?.oauth2?.providers?.some((provider) => provider.name === "github") && (
                 <GithubSignIn handleOAuth={handleOAuth} />
               )}
               {/* {auth.authMethods?.oauth2.providers.some((provider) => provider.name === "apple") && <GithubSignIn handleOAuth={handleOAuth} />} */}
             </form>
           </CardContent>
+          <CardFooter>
+            <Link to="/register" className="text-sm text-blue-600 font-semibold hover:underline">
+              <span className="cursor-pointer">Dont have an account? Click here to register.</span>
+            </Link>
+          </CardFooter>
         </Card>
       </div>
       <InputOTPForm open={showOTPForm} setOpen={setShowOTPForm} className="" onSubmit={handleOTP} />
