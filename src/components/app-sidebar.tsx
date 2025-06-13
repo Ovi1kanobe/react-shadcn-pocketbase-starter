@@ -1,5 +1,5 @@
-import { Home, CreditCard, User, LogOut } from "lucide-react";
-import { Link } from "react-router";
+import type { LucideIcon } from "lucide-react";
+import { Link, useLocation } from "react-router";
 
 import {
   Sidebar,
@@ -12,31 +12,23 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Avatar } from "./ui/avatar";
-import { useAuth } from "@/hooks/useAuth";
+import { cn } from "@/lib/utils";
 
-const items = [
-  { title: "Home", to: "/", icon: Home },
-  { title: "Account", to: "/account", icon: CreditCard },
-  { title: "Profile", to: "/profile", icon: User },
-  { title: "Logout", to: "/logout", icon: LogOut },
-];
+export interface NavItem {
+  title: string;
+  to: string;
+  icon: LucideIcon;
+}
+interface AppSidebarProps {
+  items: NavItem[];
+  header?: React.ReactNode;
+}
 
-export function AppSidebar() {
-  const { user } = useAuth();
+export function AppSidebar({ items, header }: AppSidebarProps) {
+  const location = useLocation();
   return (
     <Sidebar>
-      <SidebarHeader>
-        <div className="flex flex-row">
-          <Avatar className="" />
-          <div className="flex flex-row">
-            {/* Display avatar and make a loading animation until user shows up*/}
-            <p className="text-sm text-muted-foreground">
-              {user?.username ?? user?.email}'s account
-            </p>
-          </div>
-        </div>
-      </SidebarHeader>
+      {header && <SidebarHeader>{header}</SidebarHeader>}
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Menu</SidebarGroupLabel>
@@ -44,7 +36,13 @@ export function AppSidebar() {
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton
+                    asChild
+                    className={cn(
+                      "transition-all duration-400",
+                      location.pathname === item.to ? "bg-gray-100" : "hover:translate-x-4"
+                    )}
+                  >
                     <Link to={item.to}>
                       <item.icon className="size-4" />
                       <span>{item.title}</span>
