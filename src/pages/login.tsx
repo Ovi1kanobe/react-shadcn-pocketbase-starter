@@ -113,9 +113,7 @@ function LoginPage() {
       <div className="w-full flex items-center justify-center">
         <Card className="p-6 py-12">
           <CardTitle className="font-bold text-center text-xl">Log in to your account</CardTitle>
-          <CardDescription>
-            Enter your email and password below to log in
-            </CardDescription>
+          <CardDescription>Enter your email and password below to log in</CardDescription>
           <CardContent>
             <form
               onSubmit={handleSubmit}

@@ -3,7 +3,7 @@ import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import toast from "react-hot-toast";
-import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardTitle } from "@/components/ui/card";
 import { useAdminAuth } from "../hooks/useAdminAuth";
 import { Link } from "react-router";
 
@@ -30,13 +30,7 @@ function AdminLoginPage() {
       <div className="w-full flex items-center justify-center ">
         <Card className="p-6 py-12">
           <CardTitle className="font-bold text-center text-xl">Admin Login</CardTitle>
-          <CardDescription>
-            Enter your admin credentials below to log in.
-            <br />
-            <Link to="/login" className="text-sm text-blue-600 font-semibold hover:underline">
-              <span className="cursor-pointer">Not an admin? Click here for user login.</span>
-            </Link>
-          </CardDescription>
+          <CardDescription>Enter your admin credentials below to log in.</CardDescription>
 
           <CardContent>
             <form
@@ -75,6 +69,11 @@ function AdminLoginPage() {
               </Button>
             </form>
           </CardContent>
+          <CardFooter>
+            <Link to="/login" className="text-sm text-blue-600 font-semibold hover:underline">
+              <span className="cursor-pointer">Not an admin? Click here for user login.</span>
+            </Link>
+          </CardFooter>
         </Card>
       </div>
     </div>
