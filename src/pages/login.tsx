@@ -162,10 +162,10 @@ function LoginPage() {
                 OR CONTINUE WITH
                 <Separator />
               </div>
-              {authMethods?.oauth2.providers.some((provider) => provider.name === "google") && (
+              {authMethods?.oauth2?.providers?.some((provider) => provider.name === "google") && (
                 <GoogleSignIn handleOAuth={handleOAuth} />
               )}
-              {authMethods?.oauth2.providers.some((provider) => provider.name === "github") && (
+              {authMethods?.oauth2?.providers?.some((provider) => provider.name === "github") && (
                 <GithubSignIn handleOAuth={handleOAuth} />
               )}
               {/* {auth.authMethods?.oauth2.providers.some((provider) => provider.name === "apple") && <GithubSignIn handleOAuth={handleOAuth} />} */}
