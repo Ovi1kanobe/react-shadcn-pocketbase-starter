@@ -6,6 +6,7 @@ import PopoverMenuItem from "@/components/popover-menu-item";
 
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import AppSidebar, { type NavItem } from "@/components/app-sidebar";
+import { Separator } from "@/components/ui/separator";
 
 const navItems: NavItem[] = [
   { title: "Home", to: "/admin", icon: Home },
@@ -26,6 +27,10 @@ function AdminHeader() {
       <PopoverContent className="p-1  ml-2 flex flex-col space-y-1">
         <PopoverMenuItem to="/settings" icon={Settings}>
           Settings
+        </PopoverMenuItem>
+        <Separator />
+        <PopoverMenuItem to="/logout" icon={LogOut}>
+          Logout
         </PopoverMenuItem>
       </PopoverContent>
     </Popover>
