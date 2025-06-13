@@ -5,10 +5,11 @@ import { Button } from "../components/ui/button";
 import toast from "react-hot-toast";
 import { Card, CardContent, CardDescription, CardFooter, CardTitle } from "@/components/ui/card";
 import { useAuth } from "../hooks/useAuth";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 function RegisterPage() {
   const auth = useAuth();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -29,6 +30,7 @@ function RegisterPage() {
       },
       () => {
         toast.success("Registration successful");
+        navigate("/login", { replace: true });
       }
     );
   };
