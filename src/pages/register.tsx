@@ -76,7 +76,7 @@ function RegisterPage() {
                   type={showPassword ? "text" : "password"}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  placeholder="confirm password"
+                  placeholder="Confirm password"
                   className="pr-10"
                 />
                 <button
