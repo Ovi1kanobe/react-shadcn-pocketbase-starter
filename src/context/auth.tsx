@@ -378,7 +378,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
         setFetched(true);
       }
     );
-    const removeListener = pb.authStore.onChange((token, record) => {
+    const removeListener = pb.authStore.onChange((token: string, record: unknown) => {
       if (import.meta.env.DEV) {
         console.debug("AuthStore changed:", token, record);
       }

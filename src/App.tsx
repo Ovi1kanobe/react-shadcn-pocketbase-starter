@@ -4,6 +4,7 @@ import { useAuth } from "./hooks/useAuth";
 import Demo from "./pages/demo";
 import AccountPage from "./pages/account";
 import ProfilePage from "./pages/profile";
+import SettingsPage from "./pages/settings";
 import LoginPage from "./pages/login";
 import AdminLoginPage from "./pages/admin-login";
 import AdminDemo from "./pages/admin-demo";
@@ -45,6 +46,7 @@ function App() {
           <Route path="/" element={<Demo />} />
           <Route path="/account" element={<AccountPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/settings" element={<SettingsPage />} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

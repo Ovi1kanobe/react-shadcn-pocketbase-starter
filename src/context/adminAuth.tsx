@@ -34,9 +34,7 @@ export function AdminAuthContextProvider({ children }: AdminAuthProviderProps) {
       onSuccess: () => void
     ) => {
       try {
-        const res = await pb
-          .collection("_superusers")
-          .authWithPassword<SuperusersResponse>(email, password);
+        const res = await pb.collection("_superusers").authWithPassword(email, password);
         setAdmin(res.record);
         onSuccess();
       } catch (error) {
@@ -62,7 +60,7 @@ export function AdminAuthContextProvider({ children }: AdminAuthProviderProps) {
           );
         }
         const id = pb.authStore.model.id;
-        const adminRes = await pb.collection("_superusers").getOne<SuperusersResponse>(id);
+        const adminRes = await pb.collection("_superusers").getOne(id);
         if (onSuccess) onSuccess(adminRes);
       } catch (e) {
         const err = e as PocketBaseError;
