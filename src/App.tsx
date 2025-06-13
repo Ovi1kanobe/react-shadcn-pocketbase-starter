@@ -6,6 +6,7 @@ import AccountPage from "./pages/account";
 import ProfilePage from "./pages/profile";
 import SettingsPage from "./pages/settings";
 import LoginPage from "./pages/login";
+import RegisterPage from "./pages/register";
 import AdminLoginPage from "./pages/admin-login";
 import AdminDemo from "./pages/admin-demo";
 import { Navigate, Route, Routes } from "react-router";
@@ -34,6 +35,7 @@ function App() {
     <div className="flex flex-col items-center justify-center min-h-screen">
       <Routes>
         <Route path="/login" element={user ? <Navigate to="/" /> : <LoginPage />} />
+        <Route path="/register" element={user ? <Navigate to="/" /> : <RegisterPage />} />
         <Route
           path="/admin-login"
           element={admin ? <Navigate to="/admin" /> : <AdminLoginPage />}
