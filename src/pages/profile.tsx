@@ -7,6 +7,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useClient } from "@/hooks/useClient";
+import { Camera } from "lucide-react";
 
 function ProfilePage() {
   const { user, updateUser } = useAuth();
@@ -35,11 +36,13 @@ function ProfilePage() {
     <PageContainer>
       <div className="p-4 pb-2">
         <Card className="p-4 flex items-center gap-4">
-          <Avatar className="size-16">
+          <Avatar className="size-16 relative group flex items-center justify-center">
             {user?.avatar && (
               <AvatarImage src={pb.files.getURL(user, user.avatar)} alt={user.name} />
             )}
             <AvatarFallback className="uppercase">{user?.name?.slice(0, 2)}</AvatarFallback>
+            <div className="w-full h-full bg-black absolute cursor-pointer opacity-0 group-hover:opacity-70"></div>
+            <Camera className="absolute text-white hidden group-hover:block cursor-pointer" />
           </Avatar>
           <div>
             <h1 className="text-2xl font-bold leading-none">{user?.name || "Profile"}</h1>
