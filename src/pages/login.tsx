@@ -71,8 +71,13 @@ function LoginPage() {
     auth.loginWithOAuth(
       provider,
       (error) => {
-        toast.error(error.response.message);
-        setShowForgotPassword(true);
+        if (error.response.mfaId) {
+          toast.error("Internal server error");
+          console.log("OAuth login returned an MFA ID. The server may be misconfigured.", error);
+        } else {
+          toast.error(error.response.message);
+          setShowForgotPassword(true);
+        }
       },
       () => {},
       oneTimeCode
