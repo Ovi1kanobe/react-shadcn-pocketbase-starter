@@ -34,14 +34,7 @@ function RegisterPage() {
         toast.error(error.response.message);
       },
       () => {
-        auth.sendVerificationEmail(
-          (error) => {
-            toast.error(error.response.message);
-          },
-          () => {
-            navigate("/login", { replace: true });
-          }
-        );
+        navigate("/login", { replace: true });
       }
     );
   };

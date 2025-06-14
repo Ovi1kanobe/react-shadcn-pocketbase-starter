@@ -173,6 +173,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
             query: { code: oneTimeCode },
           }
         );
+        await pb.collection("users").requestVerification(email);
         onSuccess();
       } catch (error) {
         onError(error as PocketBaseError);
