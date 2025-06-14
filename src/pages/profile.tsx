@@ -6,7 +6,6 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { useAuth } from "@/hooks/useAuth";
 import { cn } from "@/lib/utils";
-import { Lock, Unlock } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -25,13 +24,17 @@ function ProfilePage() {
       setInputLocked(false);
       return;
     }
-    updateUser({ name },() => {
-      toast.error("Failed to update name. Please try again.");
-    }, () => {
-      toast.success("Name updated successfully!");
-      setInputLocked(true);
-      setName(name);
-    })
+    updateUser(
+      { name },
+      () => {
+        toast.error("Failed to update name. Please try again.");
+      },
+      () => {
+        toast.success("Name updated successfully!");
+        setInputLocked(true);
+        setName(name);
+      }
+    );
   }
 
   return (
@@ -42,17 +45,17 @@ function ProfilePage() {
         <Card className="p-4 flex flex-col ">
           <Label>Name</Label>
           <div className="flex flex-row gap-4 items-center relative cursor-pointer">
-            <Input 
-            onClick={() => setInputLocked(false)}
-            value={name} 
-            disabled={inputLocked}
-            onChange={(e) => setName(e.target.value)} 
-            className={cn("w-full transition-all duration-500")} />
+            <Input
+              onClick={() => setInputLocked(false)}
+              value={name}
+              disabled={inputLocked}
+              onChange={(e) => setName(e.target.value)}
+              className={cn("w-full transition-all duration-500")}
+            />
             <Button
-            onClick={handlePushButton}
-            variant={"default"}
-              className={cn(
-                "overflow-hidden transition-all duration-500")}
+              onClick={handlePushButton}
+              variant={"default"}
+              className={cn("overflow-hidden transition-all duration-500")}
             >
               {inputLocked ? "Change" : "Save"}
             </Button>
