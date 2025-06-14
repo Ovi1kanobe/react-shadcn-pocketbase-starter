@@ -2,10 +2,10 @@ import { Navigate, Outlet } from "react-router";
 import { ChevronDown, Home, LogOut, User2Icon, Settings } from "lucide-react";
 
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import PopoverMenuItem from "@/components/popover-menu-item";
+import PopoverMenuItem from "@/components/core/popover-menu-item";
 
 import { useAdminAuth } from "@/hooks/useAdminAuth";
-import AppSidebar, { type NavItem } from "@/components/app-sidebar";
+import AppSidebar, { type NavItem } from "@/components/core/app-sidebar";
 import { Separator } from "@/components/ui/separator";
 
 const navItems: NavItem[] = [

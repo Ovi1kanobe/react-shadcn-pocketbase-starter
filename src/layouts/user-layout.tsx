@@ -2,10 +2,10 @@ import { Navigate, Outlet } from "react-router";
 import { Home, CreditCard, User, LogOut, User2Icon, ChevronDown, Settings } from "lucide-react";
 
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import PopoverMenuItem from "@/components/popover-menu-item";
+import PopoverMenuItem from "@/components/core/popover-menu-item";
 
 import { useAuth } from "@/hooks/useAuth";
-import AppSidebar, { type NavItem } from "@/components/app-sidebar";
+import AppSidebar, { type NavItem } from "@/components/core/app-sidebar";
 import { Separator } from "@/components/ui/separator";
 
 const navItems: NavItem[] = [
@@ -53,7 +53,7 @@ function UserLayout() {
   }
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen w-screen">
       <AppSidebar items={navItems} header={<UserHeader />} />
       <div className="flex flex-1 flex-col">
         <main className="flex flex-1 flex-col items-center">
