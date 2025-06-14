@@ -173,6 +173,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
             query: { code: oneTimeCode },
           }
         );
+        await pb.collection("users").requestVerification(email);
         onSuccess();
       } catch (error) {
         onError(error as PocketBaseError);
@@ -283,27 +284,16 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
       oneTimeCode?: string
     ) => {
       try {
-        await pb.collection("users").authWithOAuth2({ provider, query: { code: oneTimeCode } });
-        await fetchCurrentUser(
-          () => {
-            throw new PocketBaseError(
-              "Error Fetching User",
-              500,
-              { code: 1001, message: "Error Fetching User", data: {} },
-              false,
-              null
-            );
-          },
-          (user) => {
-            setUser(user);
-          }
-        );
+        const res = await pb
+          .collection("users")
+          .authWithOAuth2({ provider, query: { code: oneTimeCode } });
+        setUser(res.record);
         onSuccess();
       } catch (error) {
         onError(error as PocketBaseError);
       }
     },
-    [pb, fetchCurrentUser]
+    [pb]
   );
 
   const requestEmailChange = useCallback(
