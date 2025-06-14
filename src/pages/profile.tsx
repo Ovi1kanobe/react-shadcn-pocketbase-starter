@@ -6,16 +6,33 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { useAuth } from "@/hooks/useAuth";
 import { cn } from "@/lib/utils";
+import { Lock, Unlock } from "lucide-react";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 function ProfilePage() {
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
   const [name, setName] = useState("");
+  const [inputLocked, setInputLocked] = useState(true);
 
   useEffect(() => {
     if (!user) return;
     setName(user.name);
   }, [user]);
+
+  function handlePushButton() {
+    if (inputLocked) {
+      setInputLocked(false);
+      return;
+    }
+    updateUser({ name },() => {
+      toast.error("Failed to update name. Please try again.");
+    }, () => {
+      toast.success("Name updated successfully!");
+      setInputLocked(true);
+      setName(name);
+    })
+  }
 
   return (
     <PageContainer>
@@ -24,15 +41,20 @@ function ProfilePage() {
       <div className="flex flex-col space-y-4 p-4">
         <Card className="p-4 flex flex-col ">
           <Label>Name</Label>
-          <div className="flex flex-row gap-4 items-center">
-            <Input value={name} onChange={(e) => setName(e.target.value)} />
+          <div className="flex flex-row gap-4 items-center relative cursor-pointer">
+            <Input 
+            onClick={() => setInputLocked(false)}
+            value={name} 
+            disabled={inputLocked}
+            onChange={(e) => setName(e.target.value)} 
+            className={cn("w-full transition-all duration-500")} />
             <Button
+            onClick={handlePushButton}
+            variant={"default"}
               className={cn(
-                "transition-all duration-1000 scale-x-100",
-                name == user?.name && "scale-x-0"
-              )}
+                "overflow-hidden transition-all duration-500")}
             >
-              Save
+              {inputLocked ? "Change" : "Save"}
             </Button>
           </div>
         </Card>
