@@ -59,3 +59,16 @@ npm run dev
 ```
 
 The application will be available at the URL printed in the terminal.
+
+## MFA configuration
+
+When enabling multi-factor authentication in PocketBase you may want to avoid
+requiring it for OAuth providers. Use the following filter in your collection
+rules:
+
+```text
+@request.context != oauth2
+```
+
+Without this filter the server can return an `mfaId` during OAuth login and the
+client will display an internal server error toast.
