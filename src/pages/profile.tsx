@@ -6,9 +6,11 @@ import { Separator } from "@/components/ui/separator";
 import { useAuth } from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useClient } from "@/hooks/useClient";
 
 function ProfilePage() {
   const { user, updateUser } = useAuth();
+  const { pb } = useClient();
   const [name, setName] = useState("");
 
   useEffect(() => {
@@ -34,7 +36,9 @@ function ProfilePage() {
       <div className="p-4 pb-2">
         <Card className="p-4 flex items-center gap-4">
           <Avatar className="size-16">
-            {user?.avatar && <AvatarImage src={user.avatar} alt={user.name} />}
+            {user?.avatar && (
+              <AvatarImage src={pb.files.getURL(user, user.avatar)} alt={user.name} />
+            )}
             <AvatarFallback className="uppercase">{user?.name?.slice(0, 2)}</AvatarFallback>
           </Avatar>
           <div>
