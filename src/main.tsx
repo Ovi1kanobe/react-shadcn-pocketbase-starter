@@ -9,6 +9,7 @@ import { AdminAuthContextProvider } from "./context/adminAuth.tsx";
 import { Toaster } from "react-hot-toast";
 import { TooltipProvider } from "./components/ui/tooltip.tsx";
 import { SidebarProvider } from "./components/ui/sidebar.tsx";
+import { ConfirmDialogProvider } from "./context/confirm-dialog.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -19,7 +20,9 @@ createRoot(document.getElementById("root")!).render(
           <AuthContextProvider>
             <AdminAuthContextProvider>
               <SidebarProvider>
-                <App />
+                <ConfirmDialogProvider>
+                  <App />
+                </ConfirmDialogProvider>
               </SidebarProvider>
             </AdminAuthContextProvider>
           </AuthContextProvider>
