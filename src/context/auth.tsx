@@ -389,7 +389,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   }, [fetchCurrentUser, pb.authStore]);
 
   useEffect(() => {
-    if (!user) return;
+    if (user) return;
     if (import.meta.env.DEV) {
       console.debug("user has changed, fetching external auths", user);
     }
