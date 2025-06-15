@@ -98,9 +98,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
       onSuccess?: (res: ExternalauthsResponse[]) => void
     ) => {
       try {
-        const res = await pb.collection("_externalAuths").getFullList({
-          filter: `recordRef = "${user?.id}"`,
-        });
+        const res = await pb.collection("_externalAuths").getFullList();
         if (onSuccess) onSuccess(res);
       } catch (e) {
         const error = e as PocketBaseError;
@@ -108,7 +106,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
         if (onError) onError(error);
       }
     },
-    [pb, user?.id]
+    [pb]
   );
 
   const fetchAuthMethods = useCallback(
