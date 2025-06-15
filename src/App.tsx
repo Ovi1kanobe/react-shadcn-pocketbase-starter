@@ -20,7 +20,7 @@ function App() {
   const { admin, fetched: adminFetched } = useAdminAuth();
   if (!fetched || !adminFetched) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen gap-24 p-4">
+      <div className="flex flex-col items-center justify-center min-h-screen gap-24 p-4 w-full">
         <SyncLoader
           color="#000000"
           loading={!fetched}
