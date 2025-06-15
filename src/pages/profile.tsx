@@ -23,7 +23,8 @@ function ProfilePage() {
     if (file) {
       updateUser(
         {
-          avatar: file, //Due to Pocketbase Typegen's limitations, we must ignore this type error. The update function can infact take a file
+          // @ts-expect-error -- PocketBase accepts File even though type says string
+          avatar: file,
         },
         () => {
           toast.error("Failed to update avatar. Please try again.");
