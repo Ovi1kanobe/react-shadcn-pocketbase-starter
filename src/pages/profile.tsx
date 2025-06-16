@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { Camera } from "lucide-react";
 import UserAvatar from "@/components/core/user-avatar";
+import LabeledActionBlock from "@/components/core/labeled-action-block";
 
 function ProfilePage() {
   const { user, updateUser } = useAuth();
@@ -45,7 +46,7 @@ function ProfilePage() {
     setName(user.name);
   }, [user]);
 
-  function handleSave() {
+  function onChangeName() {
     updateUser(
       { name },
       () => {
@@ -86,7 +87,8 @@ function ProfilePage() {
       </Card>
       <Separator />
       <div className="flex flex-col space-y-4 p-4">
-        <EditableTextCard label="Name" value={name} onChange={setName} onSave={handleSave} />
+        <EditableTextCard label="Name" value={name} onChange={setName} onSave={onChangeName} />
+        <LabeledActionBlock title="Name" description="Change your display name." actionLabel="Change" onActionClick={onChangeName} />
       </div>
     </PageContainer>
   );
