@@ -342,11 +342,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   );
 
   const unlinkExternalAuth = useCallback(
-    async (
-      id: string,
-      onError: (error: PocketBaseError) => void,
-      onSuccess: () => void
-    ) => {
+    async (id: string, onError: (error: PocketBaseError) => void, onSuccess: () => void) => {
       try {
         await pb.collection("_externalAuths").delete(id);
         setExternalAuths((prev) => prev?.filter((auth) => auth.id !== id) || null);
@@ -410,7 +406,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   }, [fetchCurrentUser, pb.authStore]);
 
   useEffect(() => {
-    if (user) return;
+    if (!user) return;
     if (import.meta.env.DEV) {
       console.debug("user has changed, fetching external auths", user);
     }

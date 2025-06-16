@@ -11,7 +11,13 @@ export function OAuthButton({ provider, onClick, disabled }: OAuthButtonProps) {
   const icon = oauthProviderIcon(provider);
   const label = provider.charAt(0).toUpperCase() + provider.slice(1);
   return (
-    <Button type="button" className="w-full" variant={"outline"} onClick={() => onClick(provider) } disabled={disabled}>
+    <Button
+      type="button"
+      className="w-full"
+      variant={"outline"}
+      onClick={() => onClick(provider)}
+      disabled={disabled}
+    >
       {icon}
       {label}
     </Button>
