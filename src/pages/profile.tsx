@@ -2,6 +2,8 @@ import PageContainer from "@/components/core/page-container";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useAuth } from "@/hooks/useAuth";
+import { useGlobalDialog } from "@/hooks/useGlobalDialog";
+import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import LabeledActionBlock from "@/components/core/labeled-action-block";
@@ -9,6 +11,7 @@ import UserAvatarForm from "@/components/core/user-avatar-form";
 
 function ProfilePage() {
   const { user, updateUser } = useAuth();
+  const dialog = useGlobalDialog();
   const [name, setName] = useState("");
 
   useEffect(() => {
@@ -30,8 +33,17 @@ function ProfilePage() {
   }
 
   const onOpenNameChangeForm = () => {
-    // Open the dialog context with the correct props
-  }
+    dialog.openDialog({
+      title: "Change Name",
+      content: (
+        <Input placeholder="New name" value={name} onChange={(e) => setName(e.target.value)} />
+      ),
+      confirmLabel: "Save",
+      cancelLabel: "Cancel",
+      onConfirm: onChangeName,
+      onCancel: () => setName(user?.name || ""),
+    });
+  };
 
   return (
     <PageContainer>
