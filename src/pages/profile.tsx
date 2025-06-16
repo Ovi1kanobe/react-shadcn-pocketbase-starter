@@ -60,30 +60,30 @@ function ProfilePage() {
 
   return (
     <PageContainer>
-        <Card className="p-4 flex items-center gap-4">
-          {user && (
-            <>
-              <UserAvatar user={user} className="size-36 group" onClick={handleClick}>
-                <div className="w-full h-full bg-black absolute cursor-pointer opacity-0 group-hover:opacity-50 transition-all duration-300"></div>
-                <Camera
-                  size={18}
-                  className="absolute text-white opacity-0 group-hover:opacity-100 cursor-pointer transition-all duration-500"
-                />
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={handleFileChange}
-                  ref={fileInputRef}
-                />
-              </UserAvatar>
-              <div>
-                <h1 className="text-2xl font-bold leading-none">{user?.name || "Profile"}</h1>
-                {user?.email && <p className="text-muted-foreground text-sm">{user.email}</p>}
-              </div>
-            </>
-          )}
-        </Card>
+      <Card className="p-4 flex items-center gap-4">
+        {user && (
+          <>
+            <UserAvatar user={user} className="size-36 group" onClick={handleClick}>
+              <div className="w-full h-full bg-black absolute cursor-pointer opacity-0 group-hover:opacity-50 transition-all duration-300"></div>
+              <Camera
+                size={18}
+                className="absolute text-white opacity-0 group-hover:opacity-100 cursor-pointer transition-all duration-500"
+              />
+              <input
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleFileChange}
+                ref={fileInputRef}
+              />
+            </UserAvatar>
+            <div>
+              <h1 className="text-2xl font-bold leading-none">{user?.name || "Profile"}</h1>
+              {user?.email && <p className="text-muted-foreground text-sm">{user.email}</p>}
+            </div>
+          </>
+        )}
+      </Card>
       <Separator />
       <div className="flex flex-col space-y-4 p-4">
         <EditableTextCard label="Name" value={name} onChange={setName} onSave={handleSave} />

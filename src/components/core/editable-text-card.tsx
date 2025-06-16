@@ -2,8 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 interface EditableTextCardProps {
@@ -25,49 +25,24 @@ function EditableTextCard({
   disabled = false,
   disabledReason,
 }: EditableTextCardProps) {
-  const [locked, setLocked] = useState(true);
-
-  function handleButtonClick() {
-    if (locked) {
-      setLocked(false);
-    } else {
-      onSave();
-      setLocked(true);
-    }
-  }
-
   return (
-    <Card className="p-4 flex flex-col ">
-      <Label>{label}</Label>
-      {description && (
-        <CardDescription className="text-sm text-muted-foreground mb-2">
-          {description}
-        </CardDescription>
-      )}
+    <Card className="flex flex-col">
+      <div className="p-4 space-y-2">
+        <Label>{label}</Label>
+        {description && (
+          <CardDescription className="text-sm text-muted-foreground">{description}</CardDescription>
+        )}
+      </div>
+      <Separator />
       <Tooltip>
         <TooltipTrigger asChild>
-          <div
-            className={cn(
-              "flex flex-row gap-4 items-center relative",
-              disabled == true && "cursor-not-allowed"
-            )}
-          >
-            <Input
-              onClick={() => setLocked(false)}
-              value={value}
-              disabled={locked}
-              onChange={(e) => onChange(e.target.value)}
-              className={cn("w-full transition-all duration-500")}
-            />
-
-            <Button
-              onClick={handleButtonClick}
-              variant={"default"}
-              className={cn("overflow-hidden transition-all duration-500")}
-              disabled={disabled}
-            >
-              {locked ? "Change" : "Save"}
-            </Button>
+          <div className={cn("flex flex-row h-24 items-center", disabled && "cursor-not-allowed")}>
+            <div className="w-40 flex items-center justify-center">
+              <p className="text-sm">New {label}</p>
+            </div>
+            <div className="flex-1 bg-gray-100 flex items-center justify-center p-4">
+              <Input value={value} onChange={(e) => onChange(e.target.value)} disabled={disabled} />
+            </div>
           </div>
         </TooltipTrigger>
         {disabled && disabledReason && (
@@ -76,6 +51,12 @@ function EditableTextCard({
           </TooltipContent>
         )}
       </Tooltip>
+      <Separator />
+      <div className="p-4 flex justify-end">
+        <Button onClick={onSave} disabled={disabled}>
+          Save
+        </Button>
+      </div>
     </Card>
   );
 }
