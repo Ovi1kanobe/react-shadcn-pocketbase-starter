@@ -160,12 +160,12 @@ function AccountPage() {
           </Collapsible>
         </CardContent>
       </Card>
-        <ToggleCard
-          label="Email Visibility"
-          information="Do you want your email address to be visible to the application?"
-          checked={user.emailVisibility}
-          onCheckedChange={onToggleEmailVisibility}
-        />
+      <ToggleCard
+        label="Email Visibility"
+        information="Do you want your email address to be visible to the application?"
+        checked={user.emailVisibility}
+        onCheckedChange={onToggleEmailVisibility}
+      />
     </PageContainer>
   );
 }
