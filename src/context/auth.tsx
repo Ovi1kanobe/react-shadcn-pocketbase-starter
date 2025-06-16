@@ -62,6 +62,11 @@ export interface AuthContextType {
     onError: (error: PocketBaseError) => void,
     onSuccess?: (userRes: UsersResponse) => void
   ) => void;
+  unlinkExternalAuth: (
+    id: string,
+    onError: (error: PocketBaseError) => void,
+    onSuccess: () => void
+  ) => void;
   fetchAuthMethods: (
     onError?: (e: PocketBaseError) => void,
     onSuccess?: (res: AuthMethodsList) => void
@@ -336,6 +341,24 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     [pb, user]
   );
 
+  const unlinkExternalAuth = useCallback(
+    async (
+      id: string,
+      onError: (error: PocketBaseError) => void,
+      onSuccess: () => void
+    ) => {
+      try {
+        await pb.collection("_externalAuths").delete(id);
+        setExternalAuths((prev) => prev?.filter((auth) => auth.id !== id) || null);
+        onSuccess();
+      } catch (e) {
+        const error = e as PocketBaseError;
+        onError(error);
+      }
+    },
+    [pb]
+  );
+
   const setMFA = useCallback(
     async (
       mfaEnabled: boolean,
@@ -413,6 +436,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
       loginWithPassword,
       loginWithOAuth,
       fetchCurrentUser,
+      unlinkExternalAuth,
       requestEmailChange,
       updateUser,
       fetchAuthMethods,
@@ -432,6 +456,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
       loginWithPassword,
       loginWithOAuth,
       fetchCurrentUser,
+      unlinkExternalAuth,
       requestEmailChange,
       updateUser,
       fetchAuthMethods,
