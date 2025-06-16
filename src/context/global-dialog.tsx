@@ -9,69 +9,69 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { ConfirmDialogContext } from "../hooks/useConfirmDialog";
+import { DialogContext } from "../hooks/useGlobalDialog";
 
-export interface ConfirmDialogOptions {
+export interface DialogOptions {
   title?: React.ReactNode;
   description?: React.ReactNode;
-  confirmLabel?: React.ReactNode;
+  content?: React.ReactNode;
+  confirmLabel: React.ReactNode;
   cancelLabel?: React.ReactNode;
   onConfirm?: () => void;
   onCancel?: () => void;
 }
 
-export interface ConfirmDialogContextType {
-  openDialog: (options: ConfirmDialogOptions) => void;
+export interface DialogContextType {
+  openDialog: (options: DialogOptions) => void;
 }
 
-interface ConfirmDialogProviderProps {
+interface DialogProviderProps {
   children: React.ReactNode;
 }
 
-export function ConfirmDialogProvider({ children }: ConfirmDialogProviderProps) {
+export function DialogProvider({ children }: DialogProviderProps) {
   const [open, setOpen] = useState(false);
-  const [options, setOptions] = useState<ConfirmDialogOptions>({});
+  const [options, setOptions] = useState<DialogOptions | null>(null);
 
   const closeDialog = useCallback(() => setOpen(false), []);
 
-  const openDialog = useCallback((opts: ConfirmDialogOptions) => {
+  const openDialog = useCallback((opts: DialogOptions) => {
     setOptions(opts);
     setOpen(true);
   }, []);
 
   const handleConfirm = useCallback(() => {
-    options.onConfirm?.();
+    options?.onConfirm?.();
     closeDialog();
   }, [options, closeDialog]);
 
   const handleCancel = useCallback(() => {
-    options.onCancel?.();
+    options?.onCancel?.();
     closeDialog();
   }, [options, closeDialog]);
 
-  const ctxValue: ConfirmDialogContextType = useMemo(() => ({ openDialog }), [openDialog]);
+  const ctxValue: DialogContextType = useMemo(() => ({ openDialog }), [openDialog]);
 
   return (
-    <ConfirmDialogContext.Provider value={ctxValue}>
+    <DialogContext.Provider value={ctxValue}>
       {children}
       <AlertDialog open={open} onOpenChange={setOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            {options.title && <AlertDialogTitle>{options.title}</AlertDialogTitle>}
-            {options.description && (
+            {options?.title && <AlertDialogTitle>{options.title}</AlertDialogTitle>}
+            {options?.description && (
               <AlertDialogDescription>{options.description}</AlertDialogDescription>
             )}
           </AlertDialogHeader>
+          {options?.content && <div className="py-4">{options.content}</div>}
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={handleCancel}>
-              {options.cancelLabel ?? "Cancel"}
-            </AlertDialogCancel>
-            <AlertDialogAction onClick={handleConfirm}>
-              {options.confirmLabel ?? "Confirm"}
-            </AlertDialogAction>
+            {options?.cancelLabel && (
+              <AlertDialogCancel onClick={handleCancel}>{options.cancelLabel}</AlertDialogCancel>
+            )}
+            <AlertDialogAction onClick={handleConfirm}>{options?.confirmLabel}</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </ConfirmDialogContext.Provider>
+    </DialogContext.Provider>
   );
 }

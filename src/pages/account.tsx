@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useAuth } from "@/hooks/useAuth";
 import { useClient } from "@/hooks/useClient";
-import { useConfirmDialog } from "@/hooks/useConfirmDialog";
+import { useGlobalDialog } from "@/hooks/useGlobalDialog";
 import { ChevronsUpDown, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -23,7 +23,7 @@ function AccountPage() {
     updateUser,
   } = useAuth();
   const { pb } = useClient();
-  const confirmDialog = useConfirmDialog();
+  const dialog = useGlobalDialog();
   const [email, setEmail] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
@@ -54,12 +54,11 @@ function AccountPage() {
         toast.error("Failed to update email. Please try again.");
       },
       () => {
-        confirmDialog.openDialog({
+        dialog.openDialog({
           title: "Email Change Requested",
           description:
             "A confirmation email has been sent to your new email address. Please check your inbox and follow the instructions to complete the change. Then click OK to once you have confirmed the change.",
           confirmLabel: "OK",
-          cancelLabel: null,
           onConfirm: onConfirmChangeEmail,
         });
       }
