@@ -5,8 +5,7 @@ import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import toast from "react-hot-toast";
 import { Separator } from "../components/ui/separator";
-import { GoogleSignIn } from "../components/auth/google-sign-in";
-import { GithubSignIn } from "../components/auth/github-sign-in";
+import { OAuthButton } from "../components/auth/oauth-button";
 import { useAuth } from "../hooks/useAuth";
 import { InputOTPForm } from "../components/auth/otp-form";
 import { type AuthMethodsList } from "pocketbase";
@@ -168,12 +167,14 @@ function LoginPage() {
                 <Separator />
               </div>
               {authMethods?.oauth2?.providers?.some((provider) => provider.name === "google") && (
-                <GoogleSignIn handleOAuth={handleOAuth} />
+                <OAuthButton provider="google" onClick={handleOAuth} />
               )}
               {authMethods?.oauth2?.providers?.some((provider) => provider.name === "github") && (
-                <GithubSignIn handleOAuth={handleOAuth} />
+                <OAuthButton provider="github" onClick={handleOAuth} />
               )}
-              {/* {auth.authMethods?.oauth2.providers.some((provider) => provider.name === "apple") && <GithubSignIn handleOAuth={handleOAuth} />} */}
+              {/* {auth.authMethods?.oauth2.providers.some((provider) => provider.name === "apple") && (
+                <OAuthButton provider="apple" onClick={handleOAuth} />
+              )} */}
             </form>
           </CardContent>
           <CardFooter>
