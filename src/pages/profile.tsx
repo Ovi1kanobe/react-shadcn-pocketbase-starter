@@ -1,5 +1,4 @@
 import PageContainer from "@/components/core/page-container";
-import EditableTextCard from "@/components/core/editable-text-card";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useAuth } from "@/hooks/useAuth";
@@ -30,6 +29,10 @@ function ProfilePage() {
     );
   }
 
+  const onOpenNameChangeForm = () => {
+    // Open the dialog context with the correct props
+  }
+
   return (
     <PageContainer>
       <Card className="p-4 flex items-center gap-4">
@@ -45,12 +48,11 @@ function ProfilePage() {
       </Card>
       <Separator />
       <div className="flex flex-col space-y-4 p-4">
-        <EditableTextCard label="Name" value={name} onChange={setName} onSave={onChangeName} />
         <LabeledActionBlock
           title="Name"
           description="Change your display name."
           actionLabel="Change"
-          onActionClick={onChangeName}
+          onActionClick={onOpenNameChangeForm}
         />
       </div>
     </PageContainer>
