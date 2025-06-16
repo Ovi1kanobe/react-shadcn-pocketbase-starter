@@ -63,6 +63,7 @@ function ProfilePage() {
       <div className="p-4 pb-2">
         <Card className="p-4 flex items-center gap-4">
           {user && (
+            <>
             <UserAvatar user={user} className="size-36 group" onClick={handleClick}>
               <div className="w-full h-full bg-black absolute cursor-pointer opacity-0 group-hover:opacity-50 transition-all duration-300"></div>
               <Camera
@@ -77,6 +78,11 @@ function ProfilePage() {
                 ref={fileInputRef}
               />
             </UserAvatar>
+            <div>
+            <h1 className="text-2xl font-bold leading-none">{user?.name || "Profile"}</h1>
+            {user?.email && <p className="text-muted-foreground text-sm">{user.email}</p>}
+          </div>
+          </>
           )}
         </Card>
       </div>
