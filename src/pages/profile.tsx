@@ -3,43 +3,14 @@ import EditableTextCard from "@/components/core/editable-text-card";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useAuth } from "@/hooks/useAuth";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { Camera } from "lucide-react";
-import UserAvatar from "@/components/core/user-avatar";
 import LabeledActionBlock from "@/components/core/labeled-action-block";
+import UserAvatarForm from "@/components/core/user-avatar-form";
 
 function ProfilePage() {
   const { user, updateUser } = useAuth();
   const [name, setName] = useState("");
-
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-  const handleClick = () => {
-    fileInputRef.current?.click(); // programmatically open file dialog
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      updateUser(
-        {
-          // @ts-expect-error -- PocketBase accepts File even though type says string
-          avatar: file,
-        },
-        () => {
-          toast.error("Failed to update avatar. Please try again.");
-        },
-        () => {
-          toast.success("Avatar updated successfully!");
-          // Reset the file input
-          if (fileInputRef.current) {
-            fileInputRef.current.value = "";
-          }
-        }
-      );
-    }
-  };
 
   useEffect(() => {
     if (!user) return;
@@ -64,20 +35,7 @@ function ProfilePage() {
       <Card className="p-4 flex items-center gap-4">
         {user && (
           <>
-            <UserAvatar user={user} className="size-36 group" onClick={handleClick}>
-              <div className="w-full h-full bg-black absolute cursor-pointer opacity-0 group-hover:opacity-50 transition-all duration-300"></div>
-              <Camera
-                size={18}
-                className="absolute text-white opacity-0 group-hover:opacity-100 cursor-pointer transition-all duration-500"
-              />
-              <input
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={handleFileChange}
-                ref={fileInputRef}
-              />
-            </UserAvatar>
+            <UserAvatarForm />
             <div>
               <h1 className="text-2xl font-bold leading-none">{user?.name || "Profile"}</h1>
               {user?.email && <p className="text-muted-foreground text-sm">{user.email}</p>}
@@ -88,7 +46,12 @@ function ProfilePage() {
       <Separator />
       <div className="flex flex-col space-y-4 p-4">
         <EditableTextCard label="Name" value={name} onChange={setName} onSave={onChangeName} />
-        <LabeledActionBlock title="Name" description="Change your display name." actionLabel="Change" onActionClick={onChangeName} />
+        <LabeledActionBlock
+          title="Name"
+          description="Change your display name."
+          actionLabel="Change"
+          onActionClick={onChangeName}
+        />
       </div>
     </PageContainer>
   );
