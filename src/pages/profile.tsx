@@ -2,49 +2,19 @@ import PageContainer from "@/components/core/page-container";
 import { Card } from "@/components/ui/card";
 import { useAuth } from "@/hooks/useAuth";
 import { useGlobalDialog } from "@/hooks/useGlobalDialog";
-import { Input } from "@/components/ui/input";
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import LabeledActionBlock from "@/components/core/labeled-action-block";
 import UserAvatarForm from "@/components/core/user-avatar-form";
+import { ChangeNameForm } from "@/components/forms/change-name";
 
 function ProfilePage() {
-  const { user, updateUser } = useAuth();
   const dialog = useGlobalDialog();
-  const [name, setName] = useState("");
-
-  useEffect(() => {
-    if (!user) return;
-    setName(user.name);
-  }, [user]);
-
-  function onChangeName() {
-    updateUser(
-      { name },
-      () => {
-        toast.error("Failed to update name. Please try again.");
-      },
-      () => {
-        toast.success("Name updated successfully!");
-        setName(name);
-      }
-    );
-  }
+  const { user } = useAuth();
 
   const onOpenNameChangeForm = () => {
     dialog.openDialog({
-      title: "Change Name",
       content: () => (
-        <Input
-          placeholder="New name"
-          defaultValue={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+        <ChangeNameForm onSubmit={dialog.closeDialog} />
       ),
-      confirmLabel: "Save",
-      cancelLabel: "Cancel",
-      onConfirm: onChangeName,
-      onCancel: () => setName(user?.name || ""),
     });
   };
 
