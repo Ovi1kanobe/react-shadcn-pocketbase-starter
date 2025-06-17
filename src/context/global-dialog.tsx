@@ -14,7 +14,11 @@ import { DialogContext } from "../hooks/useGlobalDialog";
 export interface DialogOptions {
   title?: React.ReactNode;
   description?: React.ReactNode;
-  content?: React.ReactNode;
+  /**
+   * Content can be a React node or a function returning a React node.
+   * Using a function allows the dialog to re-render with updated state values.
+   */
+  content?: React.ReactNode | (() => React.ReactNode);
   confirmLabel: React.ReactNode;
   cancelLabel?: React.ReactNode;
   onConfirm?: () => void;
@@ -63,7 +67,11 @@ export function DialogProvider({ children }: DialogProviderProps) {
               <AlertDialogDescription>{options.description}</AlertDialogDescription>
             )}
           </AlertDialogHeader>
-          {options?.content && <div className="py-4">{options.content}</div>}
+          {options?.content && (
+            <div className="py-4">
+              {typeof options.content === "function" ? options.content() : options.content}
+            </div>
+          )}
           <AlertDialogFooter>
             {options?.cancelLabel && (
               <AlertDialogCancel onClick={handleCancel}>{options.cancelLabel}</AlertDialogCancel>

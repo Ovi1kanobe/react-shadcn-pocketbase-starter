@@ -34,7 +34,7 @@ function ProfilePage() {
   const onOpenNameChangeForm = () => {
     dialog.openDialog({
       title: "Change Name",
-      content: (
+      content: () => (
         <Input placeholder="New name" value={name} onChange={(e) => setName(e.target.value)} />
       ),
       confirmLabel: "Save",

@@ -1,5 +1,4 @@
 import { OAuthButton } from "@/components/auth/oauth-button";
-import EditableTextCard from "@/components/core/editable-text-card";
 import LabeledActionBlock from "@/components/core/labeled-action-block";
 import PageContainer from "@/components/core/page-container";
 import ToggleCard from "@/components/core/toggle-card";
@@ -10,22 +9,14 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/hooks/useAuth";
-import { useClient } from "@/hooks/useClient";
 import { useGlobalDialog } from "@/hooks/useGlobalDialog";
 import { ChevronsUpDown, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 
 function AccountPage() {
-  const {
-    user,
-    requestEmailChange,
-    externalAuths,
-    unlinkExternalAuth,
-    updateUser,
-  } = useAuth();
-  const { pb } = useClient();
+  const { user, requestEmailChange, externalAuths, unlinkExternalAuth, updateUser } = useAuth();
   const dialog = useGlobalDialog();
   const [newEmail, setNewEmail] = useState("");
   const [emailConfirm, setEmailConfirm] = useState("");
@@ -41,44 +32,46 @@ function AccountPage() {
     setEmailConfirm("");
     dialog.openDialog({
       title: "Change Email",
-      content: (
+      content: () => (
         <>
-        <Label>New email address</Label>
-        <Input
-          type="email"
-          placeholder="New email address"
-          value={newEmail}
-          onChange={(e) => setNewEmail(e.target.value)}
-          className="w-full"
-        />
-        <Label className="mt-2">Confirm new email address</Label>
-        <Input
-          type="email"
-          placeholder="Confirm new email address"
-          value={emailConfirm}
-          onChange={(e) => setEmailConfirm(e.target.value)}
-          className="w-full"
-        />
-        {newEmail !== emailConfirm && emailConfirm != "" && (
-          <p className="text-sm text-red-600 mt-2">
-            Email addresses do not match. Please ensure both fields are the same.
+          <Label>New email address</Label>
+          <Input
+            type="email"
+            placeholder="New email address"
+            value={newEmail}
+            onChange={(e) => setNewEmail(e.target.value)}
+            className="w-full"
+          />
+          <Label className="mt-2">Confirm new email address</Label>
+          <Input
+            type="email"
+            placeholder="Confirm new email address"
+            value={emailConfirm}
+            onChange={(e) => setEmailConfirm(e.target.value)}
+            className="w-full"
+          />
+          {newEmail !== emailConfirm && emailConfirm !== "" && (
+            <p className="mt-2 text-sm text-red-600">
+              Email addresses do not match. Please ensure both fields are the same.
+            </p>
+          )}
+          <p className="mt-2 text-sm text-muted-foreground">
+            Please enter your new email address. A confirmation email will be sent to this address.
           </p>
-        )}
-        <p className="text-sm text-muted-foreground mt-2">
-          Please enter your new email address. A confirmation email will be sent to this address.
-        </p>
-        <p className="text-sm text-muted-foreground mt-2">
-          Note: You must confirm the change via the email sent to your new address.     
-        </p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Note: You must confirm the change via the email sent to your new address.
+          </p>
         </>
       ),
       confirmLabel: "Save",
       cancelLabel: "Cancel",
       onConfirm: onSaveNewEmail,
-      onCancel: () => setNewEmail(""),
+      onCancel: () => {
+        setNewEmail("");
+        setEmailConfirm("");
+      },
     });
   };
-
 
   const onSaveNewEmail = () => {
     if (newEmail === user?.email) {
@@ -118,7 +111,7 @@ function AccountPage() {
     );
   };
 
-    const onToggleEmailVisibility = (checked: boolean) => {
+  const onToggleEmailVisibility = (checked: boolean) => {
     updateUser(
       {
         emailVisibility: checked,
@@ -131,7 +124,6 @@ function AccountPage() {
       }
     );
   };
-
 
   if (!user || !externalAuths) {
     return null;
@@ -176,13 +168,8 @@ function AccountPage() {
             <CollapsibleContent className="flex flex-col gap-2">
               {externalAuths.length > 0 ? (
                 externalAuths.map((auth) => (
-                  <div className="group relative flex items-center justify-end" key={auth.provider}>
-                    <OAuthButton
-                      provider={auth.provider}
-                      onClick={() => {}}
-                      disabled={true}
-                      key={auth.provider}
-                    />
+                  <div className="group relative flex items-center justify-end" key={auth.id}>
+                    <OAuthButton provider={auth.provider} onClick={() => {}} disabled />
                     <X
                       className="absolute cursor-pointer mr-2 text-red-600 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
                       onClick={() => onRemoveOAuthProvider(auth.id)}
