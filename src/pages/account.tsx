@@ -38,7 +38,7 @@ function AccountPage() {
           <Input
             type="email"
             placeholder="New email address"
-            value={newEmail}
+            defaultValue={newEmail}
             onChange={(e) => setNewEmail(e.target.value)}
             className="w-full"
           />
@@ -46,7 +46,7 @@ function AccountPage() {
           <Input
             type="email"
             placeholder="Confirm new email address"
-            value={emailConfirm}
+            defaultValue={emailConfirm}
             onChange={(e) => setEmailConfirm(e.target.value)}
             className="w-full"
           />
