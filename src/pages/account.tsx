@@ -6,8 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import ChangeEmailForm from "@/components/forms/change-email";
 import { useAuth } from "@/hooks/useAuth";
 import { useGlobalDialog } from "@/hooks/useGlobalDialog";
 import { ChevronsUpDown, X } from "lucide-react";
@@ -16,10 +15,8 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 
 function AccountPage() {
-  const { user, requestEmailChange, externalAuths, unlinkExternalAuth, updateUser } = useAuth();
+  const { user, externalAuths, unlinkExternalAuth, updateUser } = useAuth();
   const dialog = useGlobalDialog();
-  const [newEmail, setNewEmail] = useState("");
-  const [emailConfirm, setEmailConfirm] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -28,75 +25,29 @@ function AccountPage() {
   };
 
   const onOpenEmailChangeForm = () => {
-    setNewEmail("");
-    setEmailConfirm("");
     dialog.openDialog({
-      title: "Change Email",
       content: () => (
-        <>
-          <Label>New email address</Label>
-          <Input
-            type="email"
-            placeholder="New email address"
-            defaultValue={newEmail}
-            onChange={(e) => setNewEmail(e.target.value)}
-            className="w-full"
-          />
-          <Label className="mt-2">Confirm new email address</Label>
-          <Input
-            type="email"
-            placeholder="Confirm new email address"
-            defaultValue={emailConfirm}
-            onChange={(e) => setEmailConfirm(e.target.value)}
-            className="w-full"
-          />
-          {newEmail !== emailConfirm && emailConfirm !== "" && (
-            <p className="mt-2 text-sm text-red-600">
-              Email addresses do not match. Please ensure both fields are the same.
-            </p>
-          )}
-          <p className="mt-2 text-sm text-muted-foreground">
-            Please enter your new email address. A confirmation email will be sent to this address.
-          </p>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Note: You must confirm the change via the email sent to your new address.
-          </p>
-        </>
+        <ChangeEmailForm onSubmit={dialog.closeDialog} onSuccess={onEmailChangeRequested} />
       ),
-      confirmLabel: "Save",
-      cancelLabel: "Cancel",
-      onConfirm: onSaveNewEmail,
-      onCancel: () => {
-        setNewEmail("");
-        setEmailConfirm("");
-      },
     });
   };
 
-  const onSaveNewEmail = () => {
-    if (newEmail === user?.email) {
-      toast.error("You must change your email address to update it.");
-      return;
-    }
-    if (newEmail !== emailConfirm && emailConfirm !== "") {
-      toast.error("Email addresses do not match. Please ensure both fields are the same.");
-      return;
-    }
-    requestEmailChange(
-      newEmail,
-      () => {
-        toast.error("Failed to update email. Please try again.");
-      },
-      () => {
-        dialog.openDialog({
-          title: "Email Change Requested",
-          description:
-            "A confirmation email has been sent to your new email address. Please check your inbox and follow the instructions to complete the change. Then click OK to once you have confirmed the change.",
-          confirmLabel: "OK",
-          onConfirm: onConfirmChangeEmail,
-        });
-      }
-    );
+  const onEmailChangeRequested = () => {
+    dialog.openDialog({
+      content: () => (
+        <>
+          <h3 className="text-lg font-semibold">Email Change Requested</h3>
+          <p className="mt-2 text-sm text-muted-foreground">
+            A confirmation email has been sent to your new email address. Please check your inbox
+            and follow the instructions to complete the change. Then click OK once you have
+            confirmed.
+          </p>
+          <div className="pt-4 flex justify-end">
+            <Button onClick={onConfirmChangeEmail}>OK</Button>
+          </div>
+        </>
+      ),
+    });
   };
 
   const onRemoveOAuthProvider = async (id: string) => {
