@@ -1,6 +1,5 @@
 import PageContainer from "@/components/core/page-container";
 import { Card } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import { useAuth } from "@/hooks/useAuth";
 import { useGlobalDialog } from "@/hooks/useGlobalDialog";
 import { Input } from "@/components/ui/input";
@@ -58,7 +57,6 @@ function ProfilePage() {
           </>
         )}
       </Card>
-      <Separator />
       <div className="flex flex-col space-y-4 p-4">
         <LabeledActionBlock
           title="Name"

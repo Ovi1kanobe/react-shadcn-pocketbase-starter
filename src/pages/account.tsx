@@ -1,55 +1,96 @@
 import { OAuthButton } from "@/components/auth/oauth-button";
 import EditableTextCard from "@/components/core/editable-text-card";
+import LabeledActionBlock from "@/components/core/labeled-action-block";
 import PageContainer from "@/components/core/page-container";
 import ToggleCard from "@/components/core/toggle-card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useAuth } from "@/hooks/useAuth";
 import { useClient } from "@/hooks/useClient";
 import { useGlobalDialog } from "@/hooks/useGlobalDialog";
 import { ChevronsUpDown, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
 
 function AccountPage() {
   const {
     user,
     requestEmailChange,
     externalAuths,
-    fetchCurrentUser,
     unlinkExternalAuth,
     updateUser,
   } = useAuth();
   const { pb } = useClient();
   const dialog = useGlobalDialog();
-  const [email, setEmail] = useState("");
+  const [newEmail, setNewEmail] = useState("");
+  const [emailConfirm, setEmailConfirm] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const onConfirmChangeEmail = () => {
-    fetchCurrentUser(
-      () => {
-        toast.error("error fetching user after email change. Please try again.");
-      },
-      () => {
-        // User will be logged out after email change, so we need to redirect to login and make sure the user is aware that they will be logged in.
-      }
-    );
+    navigate("/logout");
   };
 
-  useEffect(() => {
-    if (!user) return;
-    setEmail(user.email);
-  }, [user, pb]);
+  const onOpenEmailChangeForm = () => {
+    setNewEmail("");
+    setEmailConfirm("");
+    dialog.openDialog({
+      title: "Change Email",
+      content: (
+        <>
+        <Label>New email address</Label>
+        <Input
+          type="email"
+          placeholder="New email address"
+          value={newEmail}
+          onChange={(e) => setNewEmail(e.target.value)}
+          className="w-full"
+        />
+        <Label className="mt-2">Confirm new email address</Label>
+        <Input
+          type="email"
+          placeholder="Confirm new email address"
+          value={emailConfirm}
+          onChange={(e) => setEmailConfirm(e.target.value)}
+          className="w-full"
+        />
+        {newEmail !== emailConfirm && emailConfirm != "" && (
+          <p className="text-sm text-red-600 mt-2">
+            Email addresses do not match. Please ensure both fields are the same.
+          </p>
+        )}
+        <p className="text-sm text-muted-foreground mt-2">
+          Please enter your new email address. A confirmation email will be sent to this address.
+        </p>
+        <p className="text-sm text-muted-foreground mt-2">
+          Note: You must confirm the change via the email sent to your new address.     
+        </p>
+        </>
+      ),
+      confirmLabel: "Save",
+      cancelLabel: "Cancel",
+      onConfirm: onSaveNewEmail,
+      onCancel: () => setNewEmail(""),
+    });
+  };
+
 
   const onSaveNewEmail = () => {
-    if (email === user?.email) {
+    if (newEmail === user?.email) {
       toast.error("You must change your email address to update it.");
       return;
     }
+    if (newEmail !== emailConfirm && emailConfirm !== "") {
+      toast.error("Email addresses do not match. Please ensure both fields are the same.");
+      return;
+    }
     requestEmailChange(
-      email,
+      newEmail,
       () => {
         toast.error("Failed to update email. Please try again.");
       },
@@ -77,11 +118,7 @@ function AccountPage() {
     );
   };
 
-  if (!user || !externalAuths) {
-    return null;
-  }
-
-  const onToggleEmailVisibility = (checked: boolean) => {
+    const onToggleEmailVisibility = (checked: boolean) => {
     updateUser(
       {
         emailVisibility: checked,
@@ -95,16 +132,18 @@ function AccountPage() {
     );
   };
 
+
+  if (!user || !externalAuths) {
+    return null;
+  }
+
   return (
     <PageContainer>
-      <EditableTextCard
-        label="Email address"
-        value={email}
-        onChange={setEmail}
-        onSave={onSaveNewEmail}
-        description="Change your email address. A confirmation email will be sent to the new address."
-        disabled={externalAuths.length > 0} // Disable changing email addresses if external auths are linked
-        disabledReason="You have linked external authentication methods. Please unlink them before changing your email."
+      <LabeledActionBlock
+        title="Email Address"
+        description={user.email}
+        actionLabel="Change"
+        onActionClick={onOpenEmailChangeForm}
       />
       <Card className="">
         <CardHeader>
