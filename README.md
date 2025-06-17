@@ -18,15 +18,13 @@ This project is a small React 19 starter template that integrates [PocketBase](h
    npm run build
    ```
 
-````
-
 3. Configure the PocketBase type generation environment variables so the client
    types can be kept in sync with the server:
 
    ```bash
    export PB_TYPEGEN_URL=https://example.com
    export PB_TYPEGEN_TOKEN=eyJhbGciOiJI...
-````
+   ```
 
 These variables are used by the `pocketbase-typegen` tool.
 The `npm run dev` and `npm run build` scripts automatically

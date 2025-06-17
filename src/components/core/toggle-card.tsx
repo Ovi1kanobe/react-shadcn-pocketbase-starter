@@ -32,19 +32,15 @@ const ToggleCard = ({
         </div>
         <Separator orientation="vertical" className=" hidden md:block" />
         <Separator orientation="horizontal" className=" md:hidden block" />
-        <Tooltip >
+        <Tooltip>
           <TooltipTrigger asChild className={cn(disabled && "cursor-not-allowed")}>
-        <div className="bg-gray-100 md:w-96 flex items-center justify-center p-10">
-          <Switch
-            disabled={disabled}
-            checked={checked}
-            onCheckedChange={onCheckedChange}
-          />
-        </div>
-        </TooltipTrigger>
-        <TooltipContent className={cn(!disabled && "hidden")}>
-          <p>{disabledReason}</p>
-        </TooltipContent>
+            <div className="bg-gray-100 md:w-96 flex items-center justify-center p-10">
+              <Switch disabled={disabled} checked={checked} onCheckedChange={onCheckedChange} />
+            </div>
+          </TooltipTrigger>
+          <TooltipContent className={cn(!disabled && "hidden")}>
+            <p>{disabledReason}</p>
+          </TooltipContent>
         </Tooltip>
       </div>
     </Card>
