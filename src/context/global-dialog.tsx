@@ -1,8 +1,5 @@
 import { useState, useCallback, useMemo } from "react";
-import {
-  AlertDialog,
-  AlertDialogContent,
-} from "@/components/ui/alert-dialog";
+import { AlertDialog, AlertDialogContent } from "@/components/ui/alert-dialog";
 import { DialogContext } from "../hooks/useGlobalDialog";
 import { X } from "lucide-react";
 
@@ -30,8 +27,10 @@ export function DialogProvider({ children }: DialogProviderProps) {
     setOpen(true);
   }, []);
 
-
-  const ctxValue: DialogContextType = useMemo(() => ({ openDialog, closeDialog }), [openDialog, closeDialog]);
+  const ctxValue: DialogContextType = useMemo(
+    () => ({ openDialog, closeDialog }),
+    [openDialog, closeDialog]
+  );
 
   return (
     <DialogContext.Provider value={ctxValue}>
@@ -45,11 +44,11 @@ export function DialogProvider({ children }: DialogProviderProps) {
                 : options.content}
             </div>
           )}
-          <div 
-          onClick={closeDialog}
-          className="absolute top-1 right-1 text-gray-400 cursor-pointer hover:text-gray-600 shadow-md rounded-sm border p-1 bg-gray-50"
+          <div
+            onClick={closeDialog}
+            className="absolute top-1 right-1 text-gray-400 cursor-pointer hover:text-gray-600 shadow-md rounded-sm border p-1 bg-gray-50"
           >
-            <X  />
+            <X />
           </div>
         </AlertDialogContent>
       </AlertDialog>

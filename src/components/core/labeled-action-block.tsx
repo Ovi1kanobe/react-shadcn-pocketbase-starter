@@ -1,6 +1,8 @@
+import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { Card } from "../ui/card";
 import { Separator } from "../ui/separator";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 interface LabeledActionBlockProps {
   title: string;
@@ -8,6 +10,7 @@ interface LabeledActionBlockProps {
   onActionClick: () => void;
   description?: string;
   disabled?: boolean;
+  disabledReason?: string;
 }
 
 export default function LabeledActionBlock({
@@ -16,6 +19,7 @@ export default function LabeledActionBlock({
   actionLabel,
   onActionClick,
   disabled = false,
+  disabledReason = "This action is currently unavailable.",
 }: LabeledActionBlockProps) {
   return (
     <Card className="flex flex-col md:flex-row p-0">
@@ -26,11 +30,18 @@ export default function LabeledActionBlock({
         </div>
         <Separator orientation="vertical" className=" hidden md:block" />
         <Separator orientation="horizontal" className=" md:hidden block" />
-        <div className="bg-gray-100 p-10 flex items-center justify-center">
-          <Button onClick={onActionClick} disabled={disabled} className="">
-            {actionLabel}
-          </Button>
-        </div>
+        <Tooltip>
+          <TooltipTrigger asChild className={cn(disabled && "cursor-not-allowed")}>
+            <div className="bg-gray-100 md:w-96 p-10 flex items-center justify-center">
+              <Button onClick={onActionClick} disabled={disabled} className="">
+                {actionLabel}
+              </Button>
+            </div>
+          </TooltipTrigger>
+          <TooltipContent className={cn(!disabled && "hidden")}>
+            <p>{disabledReason}</p>
+          </TooltipContent>
+        </Tooltip>
       </div>
     </Card>
   );

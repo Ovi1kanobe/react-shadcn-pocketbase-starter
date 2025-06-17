@@ -5,6 +5,7 @@ import { useGlobalDialog } from "@/hooks/useGlobalDialog";
 import LabeledActionBlock from "@/components/core/labeled-action-block";
 import UserAvatarForm from "@/components/core/user-avatar-form";
 import { ChangeNameForm } from "@/components/forms/change-name";
+import toast from "react-hot-toast";
 
 function ProfilePage() {
   const dialog = useGlobalDialog();
@@ -13,7 +14,12 @@ function ProfilePage() {
   const onOpenNameChangeForm = () => {
     dialog.openDialog({
       content: () => (
-        <ChangeNameForm onSubmit={dialog.closeDialog} />
+        <ChangeNameForm
+          onSubmit={dialog.closeDialog}
+          onError={() => {
+            toast.error("Failed to change name. Please try again.");
+          }}
+        />
       ),
     });
   };

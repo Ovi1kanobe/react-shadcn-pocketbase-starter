@@ -23,9 +23,9 @@ const formSchema = z.object({
 });
 
 interface ChangeNameFormProps {
-    onSubmit?: () => void;
-    onError?: () => void;
-    onSuccess?: () => void;
+  onSubmit?: () => void;
+  onError?: () => void;
+  onSuccess?: () => void;
 }
 
 export function ChangeNameForm({ onSubmit, onError, onSuccess }: ChangeNameFormProps) {

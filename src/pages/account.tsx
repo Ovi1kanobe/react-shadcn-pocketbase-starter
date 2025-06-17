@@ -87,6 +87,8 @@ function AccountPage() {
         description={user.email}
         actionLabel="Change"
         onActionClick={onOpenEmailChangeForm}
+        disabled={externalAuths.length > 0}
+        disabledReason="You cannot change your email address while external authentication methods are linked."
       />
       <Card className="">
         <CardHeader>
