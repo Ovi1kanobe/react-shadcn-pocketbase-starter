@@ -1,19 +1,20 @@
 import { SyncLoader } from "react-spinners";
 import "./App.css";
 import { useAuth } from "./hooks/useAuth";
-import Demo from "./pages/demo";
-import AccountPage from "./pages/account";
-import ProfilePage from "./pages/profile";
-import SettingsPage from "./pages/settings";
-import LoginPage from "./pages/login";
-import RegisterPage from "./pages/register";
-import AdminLoginPage from "./pages/admin-login";
-import AdminDemo from "./pages/admin-demo";
+import Demo from "./pages/user/home";
+import AccountPage from "./pages/user/account";
+import ProfilePage from "./pages/user/profile";
+import SettingsPage from "./pages/user/settings";
+import LoginPage from "./pages/user/login";
+import RegisterPage from "./pages/user/register";
+import AdminLoginPage from "./pages/admin/admin-login";
+import AdminDemo from "./pages/admin/admin-home";
 import { Navigate, Route, Routes } from "react-router";
 import LogoutPage from "./pages/logout";
 import { useAdminAuth } from "./hooks/useAdminAuth";
 import AdminLayout from "./layouts/admin-layout";
 import UserLayout from "./layouts/user-layout";
+import AdminCollections from "./pages/admin/admin-collections";
 
 function App() {
   const { user, fetched } = useAuth();
@@ -43,7 +44,7 @@ function App() {
         <Route path="/logout" element={<LogoutPage />} />
         <Route element={<AdminLayout />}>
           <Route path="/admin" element={<AdminDemo />} />
-          <Route path="/admin/collections" element={<AdminDemo />} />
+          <Route path="/admin/collections" element={<AdminCollections />} />
           <Route path="/admin/settings" element={<AdminDemo />} />
         </Route>
         <Route element={<UserLayout />}>

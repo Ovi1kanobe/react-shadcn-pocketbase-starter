@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import { Input } from "../components/ui/input";
-import { Button } from "../components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { Card, CardContent, CardDescription, CardFooter, CardTitle } from "@/components/ui/card";
-import { useAdminAuth } from "../hooks/useAdminAuth";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { Link } from "react-router";
 
 function AdminLoginPage() {

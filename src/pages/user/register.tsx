@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import { Input } from "../components/ui/input";
-import { Button } from "../components/ui/button";
+import { Input } from "../../components/ui/input";
+import { Button } from "../../components/ui/button";
 import toast from "react-hot-toast";
 import { Card, CardContent, CardDescription, CardFooter, CardTitle } from "@/components/ui/card";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth";
 import { Link, useNavigate } from "react-router";
-import { PasswordStrength } from "../components/auth/password-strength";
+import { PasswordStrength } from "../../components/auth/password-strength";
 
 function RegisterPage() {
   const auth = useAuth();

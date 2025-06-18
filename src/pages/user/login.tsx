@@ -1,13 +1,13 @@
 // src/pages/login.tsx
 import { useEffect, useState } from "react";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import { Input } from "../components/ui/input";
-import { Button } from "../components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
-import { Separator } from "../components/ui/separator";
-import { OAuthButton } from "../components/auth/oauth-button";
-import { useAuth } from "../hooks/useAuth";
-import { InputOTPForm } from "../components/auth/otp-form";
+import { Separator } from "@/components/ui/separator";
+import { OAuthButton } from "@/components/auth/oauth-button";
+import { useAuth } from "@/hooks/useAuth";
+import { InputOTPForm } from "@/components/auth/otp-form";
 import { type AuthMethodsList } from "pocketbase";
 import { Card, CardContent, CardDescription, CardFooter, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router";
