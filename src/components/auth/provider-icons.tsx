@@ -45,6 +45,10 @@ export function oauthProviderIcon(provider: string): React.ReactNode {
           </g>
         </svg>
       );
+    case "facebook":
+      return (
+        <img src="/auth/facebook.png" alt="Facebook" className="w-4 h-4" />
+      )
     default:
       return null;
   }

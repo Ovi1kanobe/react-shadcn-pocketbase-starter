@@ -166,15 +166,18 @@ function LoginPage() {
                 OR CONTINUE WITH
                 <Separator />
               </div>
-              {authMethods?.oauth2?.providers?.some((provider) => provider.name === "google") && (
-                <OAuthButton provider="google" onClick={handleOAuth} />
-              )}
-              {authMethods?.oauth2?.providers?.some((provider) => provider.name === "github") && (
-                <OAuthButton provider="github" onClick={handleOAuth} />
-              )}
-              {/* {auth.authMethods?.oauth2.providers.some((provider) => provider.name === "apple") && (
-                <OAuthButton provider="apple" onClick={handleOAuth} />
-              )} */}
+              {
+                authMethods?.oauth2?.providers?.map((provider) => {
+                  return (
+                    <OAuthButton
+                      key={provider.name}
+                      className="w-full"
+                      provider={provider.name}
+                      onClick={() => handleOAuth(provider.name)}
+                    />
+                  );
+                })
+              }
             </form>
           </CardContent>
           <CardFooter>

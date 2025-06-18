@@ -3,11 +3,10 @@ import { oauthProviderIcon } from "./provider-icons";
 
 type OAuthButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   provider: string;
-  onClick: (provider: string) => void;
   disabled?: boolean;
 }
 
-export function OAuthButton({ provider, onClick, disabled, ...props }: OAuthButtonProps) {
+export function OAuthButton({ provider, disabled, ...props }: OAuthButtonProps) {
   const icon = oauthProviderIcon(provider);
   const label = provider.charAt(0).toUpperCase() + provider.slice(1);
   return (
@@ -15,11 +14,10 @@ export function OAuthButton({ provider, onClick, disabled, ...props }: OAuthButt
       type="button"
       className=""
       variant={"outline"}
-      onClick={() => onClick(provider)}
       disabled={disabled}
       {...props}
     >
-      {icon}
+      {icon ?? "error"}
       {label}
     </Button>
   );

@@ -69,7 +69,7 @@ function AccountPage() {
     <PageContainer>
       <LabeledActionBlock
         title="Email Address"
-        description={user.email}
+        description={user.email + ` (${user.verified ? "Verified" : "Not Verified"})`}
         actionLabel="Change"
         onActionClick={onOpenEmailChangeForm}
         disabled={externalAuths.length > 0}
