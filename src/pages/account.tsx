@@ -88,7 +88,6 @@ function AccountPage() {
 
 export default AccountPage;
 
-
 function LinkedAuthenticationMethods() {
   const { externalAuths, unlinkExternalAuth } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
@@ -109,9 +108,7 @@ function LinkedAuthenticationMethods() {
     <Card className="w-full">
       <CardHeader>
         <h3 className="text-lg font-semibold">Linked External Authentication Methods</h3>
-        <CardDescription>
-          Manage your linked external authentication methods.
-        </CardDescription>
+        <CardDescription>Manage your linked external authentication methods.</CardDescription>
       </CardHeader>
       <CardContent>
         <Collapsible open={isOpen} onOpenChange={setIsOpen}>
@@ -121,13 +118,19 @@ function LinkedAuthenticationMethods() {
             </Button>
           </CollapsibleTrigger>
           <CollapsibleContent className="mt-2 space-y-2">
-            { externalAuths && externalAuths.length > 0 ? (
+            {externalAuths && externalAuths.length > 0 ? (
               externalAuths.map((auth) => (
-                <div className="flex flex-row w-full items-center justify-between space-x-2" key={auth.id}>
-                  <div
-                    className="w-1/12 bg-gray-400 h-[2px] rounded-3xl"
+                <div
+                  className="flex flex-row w-full items-center justify-between space-x-2"
+                  key={auth.id}
+                >
+                  <div className="w-1/12 bg-gray-400 h-[2px] rounded-3xl" />
+                  <OAuthButton
+                    disabled
+                    provider={auth.provider}
+                    className="w-3/4"
+                    onClick={() => {}}
                   />
-                  <OAuthButton disabled provider={auth.provider} className="w-3/4" onClick={() => {}} />
                   <Button
                     variant="destructive"
                     size="sm"
