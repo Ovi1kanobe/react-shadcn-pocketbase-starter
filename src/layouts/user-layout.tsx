@@ -8,12 +8,7 @@ import { useAuth } from "@/hooks/useAuth";
 import AppSidebar, { type NavItem } from "@/components/core/app-sidebar";
 import { Separator } from "@/components/ui/separator";
 
-const navItems: NavItem[] = [
-  { title: "Home", to: "/", icon: Home },
-  { title: "Account", to: "/account", icon: CreditCard },
-  { title: "Profile", to: "/profile", icon: User },
-  { title: "Logout", to: "/logout", icon: LogOut },
-];
+const navItems: NavItem[] = [{ title: "Home", to: "/", icon: Home }];
 
 function UserHeader() {
   const { user } = useAuth();

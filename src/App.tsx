@@ -43,6 +43,8 @@ function App() {
         <Route path="/logout" element={<LogoutPage />} />
         <Route element={<AdminLayout />}>
           <Route path="/admin" element={<AdminDemo />} />
+          <Route path="/admin/collections" element={<AdminDemo />} />
+          <Route path="/admin/settings" element={<AdminDemo />} />
         </Route>
         <Route element={<UserLayout />}>
           <Route path="/" element={<Demo />} />
@@ -50,7 +52,8 @@ function App() {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/settings" element={<SettingsPage />} />
         </Route>
-        <Route path="*" element={<Navigate to="/" />} />
+        <Route path="/404" element={<div>404 Not Found</div>} />
+        <Route path="*" element={<Navigate to="/404" />} />
       </Routes>
     </div>
   );

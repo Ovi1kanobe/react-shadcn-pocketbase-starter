@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router";
-import { ChevronDown, Home, LogOut, User2Icon, Settings } from "lucide-react";
+import { ChevronDown, Home, LogOut, User2Icon, Settings, Database } from "lucide-react";
 
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import PopoverMenuItem from "@/components/core/popover-menu-item";
@@ -10,7 +10,7 @@ import { Separator } from "@/components/ui/separator";
 
 const navItems: NavItem[] = [
   { title: "Home", to: "/admin", icon: Home },
-  { title: "Logout", to: "/logout", icon: LogOut },
+  { title: "Collections", to: "/admin/collections", icon: Database },
 ];
 
 function AdminHeader() {
@@ -25,7 +25,7 @@ function AdminHeader() {
         </div>
       </PopoverTrigger>
       <PopoverContent className="p-1  ml-2 flex flex-col space-y-1">
-        <PopoverMenuItem to="/settings" icon={Settings}>
+        <PopoverMenuItem to="/admin/settings" icon={Settings}>
           Settings
         </PopoverMenuItem>
         <Separator />
