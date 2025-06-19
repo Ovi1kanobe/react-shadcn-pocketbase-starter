@@ -51,7 +51,7 @@ function AdminLayout() {
     <div className="flex min-h-screen">
       <AppSidebar items={navItems} header={<AdminHeader />} />
       <div className="flex flex-1 flex-col">
-        <SidebarTrigger className={cn("absolute left-2 top-2 z-30", (sidebar.open) && "md:hidden")} />
+        <SidebarTrigger className={cn("absolute left-2 top-2 z-30", sidebar.open && "md:hidden")} />
         <main className="flex flex-1 flex-col items-center">
           <Outlet />
         </main>

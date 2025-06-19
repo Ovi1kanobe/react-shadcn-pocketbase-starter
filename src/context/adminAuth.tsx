@@ -16,9 +16,10 @@ export interface AdminAuthContextType {
   ) => void;
   logout: () => void;
   fetchCollections: (
-    onError: (error: PocketBaseError) => void, 
+    onError: (error: PocketBaseError) => void,
     onSuccess: (res: CollectionModel[]) => void,
-  filter?: string) => void;
+    filter?: string
+  ) => void;
 }
 
 interface AdminAuthProviderProps {
@@ -83,7 +84,7 @@ export function AdminAuthContextProvider({ children }: AdminAuthProviderProps) {
     ) => {
       try {
         const res = await pb.collections.getFullList({
-          filter: filter
+          filter: filter,
         });
         onSuccess(res);
       } catch (error) {
