@@ -23,7 +23,7 @@ import {
 
 export interface DataTableProps<TData> {
   /** Column definitions for the specific collection */
-  columns: ColumnDef<TData, any>[];
+  columns: ColumnDef<TData, unknown>[];
   /** Row data for the specific collection */
   data: TData[];
   /** Optional table children (toolbar, pagination, etc.) */
