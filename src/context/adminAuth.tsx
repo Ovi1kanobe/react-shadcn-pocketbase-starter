@@ -1,4 +1,4 @@
-import PocketBase from "pocketbase";
+import PocketBase, { type CollectionModel } from "pocketbase";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AdminAuthContext } from "../hooks/useAdminAuth";
 import PBURL from "../lib/pburl";
@@ -15,6 +15,10 @@ export interface AdminAuthContextType {
     onSuccess: () => void
   ) => void;
   logout: () => void;
+  fetchCollections: (
+    onError: (error: PocketBaseError) => void, 
+    onSuccess: (res: CollectionModel[]) => void,
+  filter?: string) => void;
 }
 
 interface AdminAuthProviderProps {
@@ -71,6 +75,26 @@ export function AdminAuthContextProvider({ children }: AdminAuthProviderProps) {
     [pb]
   );
 
+  const fetchCollections = useCallback(
+    async (
+      onError: (error: PocketBaseError) => void,
+      onSuccess: (res: CollectionModel[]) => void,
+      filter?: string
+    ) => {
+      try {
+        const res = await pb.collections.getFullList({
+          filter: filter
+        });
+        onSuccess(res);
+      } catch (error) {
+        const err = error as PocketBaseError;
+        if (err.isAbort) return;
+        onError(error as PocketBaseError);
+      }
+    },
+    [pb]
+  );
+
   const logout = useCallback(() => {
     pb.authStore.clear();
     setAdmin(null);
@@ -105,8 +129,8 @@ export function AdminAuthContextProvider({ children }: AdminAuthProviderProps) {
   }, [fetchCurrentAdmin, pb.authStore]);
 
   const ctxValue: AdminAuthContextType = useMemo(
-    () => ({ admin, fetched, loginWithPassword, logout }),
-    [admin, fetched, loginWithPassword, logout]
+    () => ({ admin, fetched, loginWithPassword, logout, fetchCollections }),
+    [admin, fetched, loginWithPassword, logout, fetchCollections]
   );
 
   return <AdminAuthContext.Provider value={ctxValue}>{children}</AdminAuthContext.Provider>;
