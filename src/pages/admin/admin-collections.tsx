@@ -1,5 +1,6 @@
 import PageContainer from "@/components/core/page-container";
-// import { DataTable } from "@/components/tables/generic/generic-table";
+import { DataTable } from "@/components/tables/generic/generic-table";
+import type { ColumnDef } from "@tanstack/react-table";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { useClient } from "@/hooks/useClient";
 import type PocketBaseError from "@/lib/pberror";
@@ -13,7 +14,8 @@ function AdminCollections() {
   const { fetchCollections } = useAdminAuth();
   const [collections, setCollections] = useState<CollectionModel[]>([]);
   const [currentCollection, setCurrentCollection] = useState<CollectionModel | null>(null);
-  const [records, setRecords] = useState<any[]>([]);
+  const [records, setRecords] = useState<Record<string, unknown>[]>([]);
+  const [columns, setColumns] = useState<ColumnDef<Record<string, unknown>>[]>([]);
   const [perPage] = useState(10);
   const [page] = useState(1);
 
@@ -46,6 +48,19 @@ function AdminCollections() {
     }
     fetchRecords();
   }, [currentCollection, page, perPage, pb]);
+
+  useEffect(() => {
+    if (records.length) {
+      const keys = Object.keys(records[0]);
+      const cols: ColumnDef<Record<string, unknown>>[] = keys.map((key) => ({
+        accessorKey: key,
+        header: key,
+      }));
+      setColumns(cols);
+    } else {
+      setColumns([]);
+    }
+  }, [records]);
   return (
     <PageContainer>
       <RecordSelector
@@ -56,7 +71,7 @@ function AdminCollections() {
         placeholder="Select a collection"
         className="mb-4"
       />
-      {/* <DataTable columns={columns} data={[]} /> */}
+      <DataTable columns={columns} data={records} />
     </PageContainer>
   );
 }
