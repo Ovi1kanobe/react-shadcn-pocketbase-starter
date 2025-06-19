@@ -1,9 +1,16 @@
-interface PageContainerProps {
-  children: React.ReactNode;
-}
+import { cn } from "@/lib/utils";
+import type { HTMLAttributes } from "react";
 
-function PageContainer({ children }: PageContainerProps) {
-  return <div className="flex flex-col h-full w-full space-y-2 max-w-2xl">{children}</div>;
+type PageContainerProps = HTMLAttributes<HTMLDivElement> & {
+  children: React.ReactNode;
+};
+
+function PageContainer({ children, className, ...props }: PageContainerProps) {
+  return (
+    <div className={cn("flex flex-col h-full w-full space-y-2 p-4", className)} {...props}>
+      {children}
+    </div>
+  );
 }
 
 export default PageContainer;

@@ -48,11 +48,16 @@ function AdminLayout() {
   }
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen w-screen">
       <AppSidebar items={navItems} header={<AdminHeader />} />
-      <div className="flex flex-1 flex-col">
-        <SidebarTrigger className={cn("absolute left-2 top-2 z-30", sidebar.open && "md:hidden")} />
-        <main className="flex flex-1 flex-col items-center">
+      <div className="flex flex-1 flex-col w-full h-full">
+        <SidebarTrigger
+          className={cn(
+            "absolute left-2 top-2 z-30",
+            !sidebar.isMobile && sidebar.open && "hidden"
+          )}
+        />
+        <main className="flex flex-1 flex-col items-center w-full h-full">
           <Outlet />
         </main>
       </div>

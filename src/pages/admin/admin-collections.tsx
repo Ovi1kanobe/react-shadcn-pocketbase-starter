@@ -1,5 +1,5 @@
 import PageContainer from "@/components/core/page-container";
-import { DataTable } from "@/components/tables/generic/generic-table";
+import { DataTable } from "@/components/core/generic-table";
 import type { ColumnDef } from "@tanstack/react-table";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { useClient } from "@/hooks/useClient";
@@ -62,7 +62,7 @@ function AdminCollections() {
     }
   }, [records]);
   return (
-    <PageContainer>
+    <PageContainer className="gap-4">
       <RecordSelector
         data={collections}
         value={currentCollection}
