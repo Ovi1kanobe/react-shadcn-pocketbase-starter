@@ -36,7 +36,7 @@ type SelectorProps<T extends { id: string }> = {
 /* ------------------------------------------------------------
  * Generic record selector
  * ---------------------------------------------------------- */
-export function RecordSelector<T extends { id: string | number }>({
+export function RecordSelector<T extends { id: string }>({
   data,
   value,
   setValue,

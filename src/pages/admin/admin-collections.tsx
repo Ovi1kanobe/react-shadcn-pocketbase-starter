@@ -1,5 +1,5 @@
 import PageContainer from "@/components/core/page-container";
-import { DataTable } from "@/components/tables/generic/generic-table";
+// import { DataTable } from "@/components/tables/generic/generic-table";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { useClient } from "@/hooks/useClient";
 import type PocketBaseError from "@/lib/pberror";
