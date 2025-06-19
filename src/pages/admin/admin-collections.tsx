@@ -8,6 +8,9 @@ import type { CollectionModel } from "pocketbase";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { RecordSelector } from "@/components/core/record-selector";
+import { Separator } from "@/components/ui/separator";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 function AdminCollections() {
   const { pb } = useClient();
@@ -16,7 +19,7 @@ function AdminCollections() {
   const [currentCollection, setCurrentCollection] = useState<CollectionModel | null>(null);
   const [records, setRecords] = useState<Record<string, unknown>[]>([]);
   const [columns, setColumns] = useState<ColumnDef<Record<string, unknown>>[]>([]);
-  const [perPage] = useState(10);
+  const [perPage, setPerPage] = useState(10);
   const [page] = useState(1);
 
   useEffect(() => {
@@ -62,16 +65,34 @@ function AdminCollections() {
     }
   }, [records]);
   return (
-    <PageContainer className="gap-4">
-      <RecordSelector
-        data={collections}
-        value={currentCollection}
-        setValue={setCurrentCollection}
-        label={(item) => item.name}
-        placeholder="Select a collection"
-        className="mb-4"
-      />
-      <DataTable columns={columns} data={records} />
+    <PageContainer className="">
+      <div className="flex flex-row items-center py-2 px-2 space-x-4">
+        <div className="flex flex-col gap-2">
+          <Label className="">Collection</Label>
+          <RecordSelector
+            data={collections}
+            value={currentCollection}
+            setValue={setCurrentCollection}
+            label={(item) => item.name}
+            placeholder="Select a collection"
+            className=""
+          />
+        </div>
+        <div className="flex flex-col gap-2">
+          <Label className="">Records Per Page</Label>
+          <Input
+            type="number"
+            value={perPage}
+            onChange={(e) => setPerPage(Number(e.target.value))}
+            placeholder="Records per page"
+            className="w-32"
+          />
+        </div>
+      </div>
+      <Separator />
+      <div className="w-full pt-4">
+        <DataTable columns={columns} data={records} />
+      </div>
     </PageContainer>
   );
 }
