@@ -6,6 +6,7 @@ import PopoverMenuItem from "@/components/core/popover-menu-item";
 
 import { useAuth } from "@/hooks/useAuth";
 import AppSidebar, { type NavItem } from "@/components/core/app-sidebar";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 
 const navItems: NavItem[] = [{ title: "Home", to: "/", icon: Home }];
@@ -51,6 +52,7 @@ function UserLayout() {
     <div className="flex min-h-screen w-screen">
       <AppSidebar items={navItems} header={<UserHeader />} />
       <div className="flex flex-1 flex-col">
+        <SidebarTrigger className="absolute left-2 top-2 z-30 md:hidden" />
         <main className="flex flex-1 flex-col items-center">
           <Outlet />
         </main>

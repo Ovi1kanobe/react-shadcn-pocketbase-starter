@@ -6,6 +6,7 @@ import PopoverMenuItem from "@/components/core/popover-menu-item";
 
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import AppSidebar, { type NavItem } from "@/components/core/app-sidebar";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 
 const navItems: NavItem[] = [
@@ -48,6 +49,7 @@ function AdminLayout() {
     <div className="flex min-h-screen">
       <AppSidebar items={navItems} header={<AdminHeader />} />
       <div className="flex flex-1 flex-col">
+        <SidebarTrigger className="absolute left-2 top-2 z-30 md:hidden" />
         <main className="flex flex-1 flex-col items-center">
           <Outlet />
         </main>
