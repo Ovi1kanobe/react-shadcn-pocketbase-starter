@@ -6,7 +6,9 @@ import PopoverMenuItem from "@/components/core/popover-menu-item";
 
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import AppSidebar, { type NavItem } from "@/components/core/app-sidebar";
+import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 
 const navItems: NavItem[] = [
   { title: "Home", to: "/admin", icon: Home },
@@ -39,16 +41,23 @@ function AdminHeader() {
 
 function AdminLayout() {
   const { admin } = useAdminAuth();
+  const sidebar = useSidebar();
 
   if (!admin) {
     return <Navigate to="/admin-login" replace />;
   }
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen w-screen">
       <AppSidebar items={navItems} header={<AdminHeader />} />
-      <div className="flex flex-1 flex-col">
-        <main className="flex flex-1 flex-col items-center">
+      <div className="flex flex-1 flex-col w-full h-full">
+        <SidebarTrigger
+          className={cn(
+            "absolute left-2 top-2 z-30",
+            !sidebar.isMobile && sidebar.open && "hidden"
+          )}
+        />
+        <main className="flex flex-1 flex-col items-center w-full h-full">
           <Outlet />
         </main>
       </div>

@@ -13,7 +13,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 
 function AccountPage() {
-  const { user, externalAuths, updateUser } = useAuth();
+  const { user, externalAuths, updateUser, sendVerificationEmail } = useAuth();
   const dialog = useGlobalDialog();
   const navigate = useNavigate();
 
@@ -27,6 +27,17 @@ function AccountPage() {
         <ChangeEmailForm onSubmit={dialog.closeDialog} onSuccess={onEmailChangeRequested} />
       ),
     });
+  };
+
+  const onSendVerificationEmail = () => {
+    sendVerificationEmail(
+      () => {
+        toast.error("Failed to send verification email. Please try again.");
+      },
+      () => {
+        toast.success("Verification email sent successfully.");
+      }
+    );
   };
 
   const onEmailChangeRequested = () => {
@@ -75,6 +86,14 @@ function AccountPage() {
         disabled={externalAuths.length > 0}
         disabledReason="You cannot change your email address while external authentication methods are linked."
       />
+      {!user.verified && (
+        <LabeledActionBlock
+          title="Email Verification"
+          description="Your email is not verified."
+          actionLabel="Send Verification Email"
+          onActionClick={onSendVerificationEmail}
+        />
+      )}
       <LinkedAuthenticationMethods />
       <ToggleCard
         label="Email Visibility"
