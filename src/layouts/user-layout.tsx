@@ -1,16 +1,16 @@
 import { Navigate, Outlet } from "react-router";
-import { Home, CreditCard, User, LogOut, User2Icon, ChevronDown, Settings } from "lucide-react";
+import { CreditCard, User, LogOut, User2Icon, ChevronDown, Settings } from "lucide-react";
 
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import PopoverMenuItem from "@/components/core/popover-menu-item";
 
 import { useAuth } from "@/hooks/useAuth";
-import AppSidebar, { type NavItem } from "@/components/core/app-sidebar";
+import AppSidebar from "@/components/core/app-sidebar";
 import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
+import { userSidebarRoutes } from "@/lib/routes";
 
-const navItems: NavItem[] = [{ title: "Home", to: "/", icon: Home }];
 
 function UserHeader() {
   const { user } = useAuth();
@@ -52,7 +52,7 @@ function UserLayout() {
 
   return (
     <div className="flex min-h-screen w-screen">
-      <AppSidebar items={navItems} header={<UserHeader />} />
+      <AppSidebar items={userSidebarRoutes} header={<UserHeader />} />
       <div className="flex flex-1 flex-col w-full h-full">
         <SidebarTrigger
           className={cn(

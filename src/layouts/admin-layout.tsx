@@ -1,19 +1,15 @@
 import { Navigate, Outlet } from "react-router";
-import { ChevronDown, Home, LogOut, User2Icon, Settings, Database } from "lucide-react";
+import { ChevronDown, LogOut, User2Icon, Settings } from "lucide-react";
 
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import PopoverMenuItem from "@/components/core/popover-menu-item";
 
 import { useAdminAuth } from "@/hooks/useAdminAuth";
-import AppSidebar, { type NavItem } from "@/components/core/app-sidebar";
+import AppSidebar from "@/components/core/app-sidebar";
 import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-
-const navItems: NavItem[] = [
-  { title: "Home", to: "/admin", icon: Home },
-  { title: "Collections", to: "/admin/collections", icon: Database },
-];
+import { adminSidebarRoutes } from "@/lib/routes";
 
 function AdminHeader() {
   const { admin } = useAdminAuth();
@@ -49,7 +45,7 @@ function AdminLayout() {
 
   return (
     <div className="flex min-h-screen w-screen">
-      <AppSidebar items={navItems} header={<AdminHeader />} />
+      <AppSidebar items={adminSidebarRoutes} header={<AdminHeader />} />
       <div className="flex flex-1 flex-col w-full h-full">
         <SidebarTrigger
           className={cn(
