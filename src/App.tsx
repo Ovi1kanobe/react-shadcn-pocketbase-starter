@@ -1,20 +1,11 @@
 import { SyncLoader } from "react-spinners";
 import "./App.css";
 import { useAuth } from "./hooks/useAuth";
-import Demo from "./pages/user/home";
-import AccountPage from "./pages/user/account";
-import ProfilePage from "./pages/user/profile";
-import SettingsPage from "./pages/user/settings";
-import LoginPage from "./pages/user/login";
-import RegisterPage from "./pages/user/register";
-import AdminLoginPage from "./pages/admin/admin-login";
-import AdminDemo from "./pages/admin/admin-home";
 import { Navigate, Route, Routes } from "react-router";
-import LogoutPage from "./pages/logout";
+import { adminRoutes, userRoutes, publicRoutes, notFoundRoute } from "./lib/routes";
 import { useAdminAuth } from "./hooks/useAdminAuth";
 import AdminLayout from "./layouts/admin-layout";
 import UserLayout from "./layouts/user-layout";
-import AdminCollections from "./pages/admin/admin-collections";
 
 function App() {
   const { user, fetched } = useAuth();
@@ -35,26 +26,29 @@ function App() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <Routes>
-        <Route path="/login" element={user ? <Navigate to="/" /> : <LoginPage />} />
-        <Route path="/register" element={user ? <Navigate to="/" /> : <RegisterPage />} />
-        <Route
-          path="/admin-login"
-          element={admin ? <Navigate to="/admin" /> : <AdminLoginPage />}
-        />
-        <Route path="/logout" element={<LogoutPage />} />
+        {publicRoutes.map(({ path, element }) => {
+          if (path === "/login" || path === "/register") {
+            return <Route key={path} path={path} element={user ? <Navigate to="/" /> : element} />;
+          }
+          if (path === "/admin-login") {
+            return (
+              <Route key={path} path={path} element={admin ? <Navigate to="/admin" /> : element} />
+            );
+          }
+          return <Route key={path} path={path} element={element} />;
+        })}
         <Route element={<AdminLayout />}>
-          <Route path="/admin" element={<AdminDemo />} />
-          <Route path="/admin/collections" element={<AdminCollections />} />
-          <Route path="/admin/settings" element={<AdminDemo />} />
+          {adminRoutes.map(({ path, element }) => (
+            <Route key={path} path={path} element={element} />
+          ))}
         </Route>
         <Route element={<UserLayout />}>
-          <Route path="/" element={<Demo />} />
-          <Route path="/account" element={<AccountPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/settings" element={<SettingsPage />} />
+          {userRoutes.map(({ path, element }) => (
+            <Route key={path} path={path} element={element} />
+          ))}
         </Route>
-        <Route path="/404" element={<div>404 Not Found</div>} />
-        <Route path="*" element={<Navigate to="/404" />} />
+        <Route path={notFoundRoute.path} element={notFoundRoute.element} />
+        <Route path="*" element={<Navigate to={notFoundRoute.path} />} />
       </Routes>
     </div>
   );
