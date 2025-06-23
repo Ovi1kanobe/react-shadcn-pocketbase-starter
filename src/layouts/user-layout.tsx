@@ -18,7 +18,9 @@ function UserHeader() {
       <PopoverTrigger className="w-full">
         <div className="flex flex-row space-x-2 items-end justify-start hover:bg-gray-100 rounded-sm p-2 cursor-pointer hover:scale-105 transition-all group/header overflow-hidden">
           <User2Icon size={18} className="shrink-0" />
-          <p className="text-sm text-muted-foreground">{user?.username ?? user?.email}</p>
+          <p className="text-sm text-muted-foreground truncate overflow-hidden whitespace-nowrap min-w-0">
+            {user?.username ?? user?.email}
+          </p>
           <ChevronDown
             size={18}
             className="group-hover/header:translate-y-1 transition-all shrink-0"
