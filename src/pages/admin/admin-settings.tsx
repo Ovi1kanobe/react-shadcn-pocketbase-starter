@@ -6,57 +6,56 @@ import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 function AdminSettingsPage() {
-    const { pb } = useClient();
+  const { pb } = useClient();
 
-    const [usersCollection, setUsersCollection] = useState<CollectionModel | null>(null);
+  const [usersCollection, setUsersCollection] = useState<CollectionModel | null>(null);
 
-    const isUserRegistrationAllowed = useCallback(() => {
-        if (!usersCollection) return false;
-        if(usersCollection.createRule === "") return true; // No create rule means registration is allowed
-        return false;
-    }, [usersCollection]);
+  const isUserRegistrationAllowed = useCallback(() => {
+    if (!usersCollection) return false;
+    if (usersCollection.createRule === "") return true; // No create rule means registration is allowed
+    return false;
+  }, [usersCollection]);
 
-    const onToggleEmailVisibility = async (checked: boolean) => {
-        if (!usersCollection) return;
-        try{
-            const res = await pb.collections.update(usersCollection.id, {
-                createRule: checked ? "" : null
-            })
-            setUsersCollection(res);
-        } catch {
-            toast.error("Failed to update user registration setting. Please try again.");
-        }
-        
+  const onToggleEmailVisibility = async (checked: boolean) => {
+    if (!usersCollection) return;
+    try {
+      const res = await pb.collections.update(usersCollection.id, {
+        createRule: checked ? "" : null,
+      });
+      setUsersCollection(res);
+    } catch {
+      toast.error("Failed to update user registration setting. Please try again.");
+    }
+  };
+
+  useEffect(() => {
+    const fetchUsersCollection = async () => {
+      try {
+        const collection = await pb.collections.getFirstListItem(`name = "users"`);
+        setUsersCollection(collection);
+      } catch (error) {
+        const err = error as PocketBaseError;
+        if (err.isAbort) return; // Ignore aborted requests
+        toast.error("Failed to fetch users collection. Please try again.");
+      }
     };
 
-    useEffect(() => {
-        const fetchUsersCollection = async () => {
-            try {
-                const collection = await pb.collections.getFirstListItem(`name = "users"`);
-                setUsersCollection(collection);
-            } catch (error) {
-                const err = error as PocketBaseError;
-                if (err.isAbort) return; // Ignore aborted requests
-                toast.error("Failed to fetch users collection. Please try again.");
-            }
-        };
+    fetchUsersCollection();
+  }, [pb.collections]);
 
-        fetchUsersCollection();
-    },[pb.collections]);
+  if (!usersCollection) return null;
 
-    if (!usersCollection) return null;
-
-    return (
-        <div className="flex flex-col items-center justify-center">
-            <h1 className="text-4xl font-bold mb-4">Admin Settings</h1>
-            <ToggleCard
-            label="Allow User Registration"
-            information="Toggle to allow or disallow user registration."
-            checked={isUserRegistrationAllowed()} // Replace with actual state
-            onCheckedChange={onToggleEmailVisibility}
-            />
-        </div>
-    )
+  return (
+    <div className="flex flex-col items-center justify-center">
+      <h1 className="text-4xl font-bold mb-4">Admin Settings</h1>
+      <ToggleCard
+        label="Allow User Registration"
+        information="Toggle to allow or disallow user registration."
+        checked={isUserRegistrationAllowed()} // Replace with actual state
+        onCheckedChange={onToggleEmailVisibility}
+      />
+    </div>
+  );
 }
 
 export default AdminSettingsPage;

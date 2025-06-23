@@ -11,7 +11,6 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { userSidebarRoutes } from "@/lib/routes";
 
-
 function UserHeader() {
   const { user } = useAuth();
   return (
