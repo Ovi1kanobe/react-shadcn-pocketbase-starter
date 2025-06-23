@@ -2,7 +2,7 @@ import ToggleCard from "@/components/core/toggle-card";
 import { useClient } from "@/hooks/useClient";
 import type PocketBaseError from "@/lib/pberror";
 import type { CollectionModel } from "pocketbase";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 function AdminSettingsPage() {
@@ -10,13 +10,9 @@ function AdminSettingsPage() {
 
   const [usersCollection, setUsersCollection] = useState<CollectionModel | null>(null);
 
-  const isUserRegistrationAllowed = useCallback(() => {
-    if (!usersCollection) return false;
-    if (usersCollection.createRule === "") return true; // No create rule means registration is allowed
-    return false;
-  }, [usersCollection]);
+  const isUserRegistrationAllowed = usersCollection?.createRule === "";
 
-  const onToggleEmailVisibility = async (checked: boolean) => {
+  const onToggleUserRegistration = async (checked: boolean) => {
     if (!usersCollection) return;
     try {
       const res = await pb.collections.update(usersCollection.id, {
@@ -41,7 +37,7 @@ function AdminSettingsPage() {
     };
 
     fetchUsersCollection();
-  }, [pb.collections]);
+  }, [pb]);
 
   if (!usersCollection) return null;
 
@@ -51,8 +47,8 @@ function AdminSettingsPage() {
       <ToggleCard
         label="Allow User Registration"
         information="Toggle to allow or disallow user registration."
-        checked={isUserRegistrationAllowed()} // Replace with actual state
-        onCheckedChange={onToggleEmailVisibility}
+        checked={isUserRegistrationAllowed}
+        onCheckedChange={onToggleUserRegistration}
       />
     </div>
   );
