@@ -16,10 +16,13 @@ function UserHeader() {
   return (
     <Popover>
       <PopoverTrigger className="w-full">
-        <div className="flex flex-row space-x-2 items-end justify-start hover:bg-gray-100 rounded-sm p-2 cursor-pointer hover:scale-105 transition-all group/header">
-          <User2Icon />
+        <div className="flex flex-row space-x-2 items-end justify-start hover:bg-gray-100 rounded-sm p-2 cursor-pointer hover:scale-105 transition-all group/header overflow-hidden">
+          <User2Icon size={18} className="shrink-0" />
           <p className="text-sm text-muted-foreground">{user?.username ?? user?.email}</p>
-          <ChevronDown className="h-3/4 group-hover/header:translate-y-1 transition-all" />
+          <ChevronDown
+            size={18}
+            className="group-hover/header:translate-y-1 transition-all shrink-0"
+          />
         </div>
       </PopoverTrigger>
       <PopoverContent className="p-1  ml-2 flex flex-col space-y-1">
