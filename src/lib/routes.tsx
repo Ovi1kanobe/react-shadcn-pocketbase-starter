@@ -13,6 +13,7 @@ import AdminLoginPage from "@/pages/admin/admin-login";
 import AdminDemo from "@/pages/admin/admin-home";
 import AdminCollections from "@/pages/admin/admin-collections";
 import LogoutPage from "@/pages/logout";
+import AdminSettingsPage from "@/pages/admin/admin-settings";
 
 export interface RouteConfig {
   path: string;
@@ -33,7 +34,7 @@ export const adminRoutes: RouteConfig[] = [
   },
   {
     path: "/admin/settings",
-    element: <AdminDemo />,
+    element: <AdminSettingsPage />,
   },
 ];
 
