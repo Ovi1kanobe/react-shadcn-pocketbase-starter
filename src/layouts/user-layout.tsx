@@ -55,7 +55,7 @@ function UserLayout() {
   }
 
   return (
-    <div className="flex min-h-screen w-screen">
+    <div className="flex min-h-screen w-screen bg-background">
       <AppSidebar items={userSidebarRoutes} header={<UserHeader />} />
       <div className="flex flex-1 flex-col w-full h-full">
         <SidebarTrigger

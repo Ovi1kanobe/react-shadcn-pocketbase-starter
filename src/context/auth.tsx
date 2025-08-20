@@ -2,7 +2,6 @@ import type { ExternalauthsResponse, UsersRecord, UsersResponse } from "../lib/p
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useClient } from "../hooks/useClient";
 import PocketBaseError from "../lib/pberror";
-import toast from "react-hot-toast";
 import type { AuthMethodsList } from "pocketbase";
 import { AuthContext } from "../hooks/useAuth";
 
@@ -406,19 +405,19 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   }, [fetchCurrentUser, pb.authStore]);
 
   useEffect(() => {
-    if (!user) return;
+    if (!user?.id) return;
     if (import.meta.env.DEV) {
-      console.debug("user has changed, fetching external auths", user);
+      console.debug("user has changed, fetching external auths", user.id);
     }
     fetchExternalAuths(
       (error) => {
-        toast.error(error.response.message);
+        console.error("Error fetching external auths:", error);
       },
       (externalAuths) => {
         setExternalAuths(externalAuths);
       }
     );
-  }, [user, fetchExternalAuths, pb.authStore]);
+  }, [user?.id, fetchExternalAuths, pb.authStore]);
   const ctxValue: AuthContextType = useMemo(
     () => ({
       user,

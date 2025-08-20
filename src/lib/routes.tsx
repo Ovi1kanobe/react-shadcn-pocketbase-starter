@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import type { NavItem } from "@/components/core/app-sidebar";
 import type { LucideIcon } from "lucide-react";
-import { Home, Database } from "lucide-react";
+import { Home, Database, List } from "lucide-react";
 
 import Demo from "@/pages/user/home";
 import AccountPage from "@/pages/user/account";
@@ -14,6 +14,7 @@ import AdminDemo from "@/pages/admin/admin-home";
 import AdminCollections from "@/pages/admin/admin-collections";
 import LogoutPage from "@/pages/logout";
 import AdminSettingsPage from "@/pages/admin/admin-settings";
+import ListPage from "@/pages/user/list";
 
 export interface RouteConfig {
   path: string;
@@ -40,6 +41,7 @@ export const adminRoutes: RouteConfig[] = [
 
 export const userRoutes: RouteConfig[] = [
   { path: "/", element: <Demo />, sidebar: { title: "Home", icon: Home } },
+  { path: "/loads", element: <ListPage />, sidebar: { title: "List", icon: List } },
   { path: "/account", element: <AccountPage /> },
   { path: "/profile", element: <ProfilePage /> },
   { path: "/settings", element: <SettingsPage /> },

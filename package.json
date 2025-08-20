@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "vite --host",
+    "dev": "vite",
     "build": "tsc -b && vite build",
     "predev": "npm run types",
     "prebuild": "npm run types",
@@ -15,6 +15,7 @@
     "types": "pocketbase-typegen --env --out src/lib/pocketbase-types.ts"
   },
   "dependencies": {
+    "@fontsource/fira-sans": "^5.2.6",
     "@hookform/resolvers": "^5.1.1",
     "@radix-ui/react-alert-dialog": "^1.1.14",
     "@radix-ui/react-avatar": "^1.1.10",

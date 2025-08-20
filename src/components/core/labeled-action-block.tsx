@@ -32,7 +32,7 @@ export default function LabeledActionBlock({
         <Separator orientation="horizontal" className=" md:hidden block" />
         <Tooltip>
           <TooltipTrigger asChild className={cn(disabled && "cursor-not-allowed")}>
-            <div className="bg-gray-100 md:w-96 p-10 flex items-center justify-center">
+            <div className="md:w-96 p-10 bg-secondary/20 flex items-center justify-center rounded-r-xl">
               <Button onClick={onActionClick} disabled={disabled} className="">
                 {actionLabel}
               </Button>

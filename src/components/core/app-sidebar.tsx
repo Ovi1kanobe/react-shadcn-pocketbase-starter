@@ -41,7 +41,7 @@ export function AppSidebar({ items, header }: AppSidebarProps) {
                     asChild
                     className={cn(
                       "transition-all duration-400",
-                      location.pathname === item.to ? "bg-gray-100" : "hover:translate-x-4"
+                      location.pathname === item.to && "bg-accent/20"
                     )}
                   >
                     <Link to={item.to}>

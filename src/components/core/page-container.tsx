@@ -7,7 +7,7 @@ type PageContainerProps = HTMLAttributes<HTMLDivElement> & {
 
 function PageContainer({ children, className, ...props }: PageContainerProps) {
   return (
-    <div className={cn("flex flex-col h-full w-full", className)} {...props}>
+    <div className={cn("flex flex-col h-full w-full p-4", className)} {...props}>
       {children}
     </div>
   );
