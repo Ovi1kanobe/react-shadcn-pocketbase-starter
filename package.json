@@ -6,13 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "predev": "bun run types",
-    "prebuild": "bun run types",
     "lint": "eslint .",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
-    "preview": "vite preview",
-    "types": "pocketbase-typegen --env --out src/lib/pocketbase-types.ts"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@fontsource/fira-sans": "^5.2.6",
