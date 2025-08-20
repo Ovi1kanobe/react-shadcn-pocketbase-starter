@@ -44,7 +44,6 @@ function ProfilePage() {
           actionLabel="Change"
           onActionClick={onOpenNameChangeForm}
         />
-        
       </div>
     </PageContainer>
   );

@@ -1,12 +1,12 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import '@fontsource/fira-sans/500.css';
+@import "@fontsource/fira-sans/500.css";
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
   /* base typography */
-  font-family: 'Fira Sans', sans-serif;
+  font-family: "Fira Sans", sans-serif;
   line-height: 1.5;
   color-scheme: light dark;
   color: rgba(249, 249, 249, 0.87);
@@ -19,42 +19,42 @@
   --radius: 0.625rem;
 
   /* neutrals and surfaces */
-  --background: #F4F4F4;
-  --foreground: #1B1E29;            /* dark slate for primary text:contentReference[oaicite:7]{index=7} */
-  --card: #FFFFFF;
-  --card-foreground: #1B1E29;
-  --popover: #FFFFFF;
-  --popover-foreground: #1B1E29;
+  --background: #f4f4f4;
+  --foreground: #1b1e29; /* dark slate for primary text:contentReference[oaicite:7]{index=7} */
+  --card: #ffffff;
+  --card-foreground: #1b1e29;
+  --popover: #ffffff;
+  --popover-foreground: #1b1e29;
 
   /* brand colours */
-  --primary: #205493;               /* corporate navy:contentReference[oaicite:8]{index=8} */
-  --primary-foreground: #FFFFFF;
-  --secondary: #5B616B;             /* neutral mid‑gray:contentReference[oaicite:9]{index=9} */
-  --secondary-foreground: #FFFFFF;
-  --accent: #9BDAF1;                /* soft blue accent:contentReference[oaicite:10]{index=10} */
-  --accent-foreground: #112E51;
-  --destructive: #CD2026;           /* red for errors:contentReference[oaicite:11]{index=11} */
+  --primary: #205493; /* corporate navy:contentReference[oaicite:8]{index=8} */
+  --primary-foreground: #ffffff;
+  --secondary: #5b616b; /* neutral mid‑gray:contentReference[oaicite:9]{index=9} */
+  --secondary-foreground: #ffffff;
+  --accent: #9bdaf1; /* soft blue accent:contentReference[oaicite:10]{index=10} */
+  --accent-foreground: #112e51;
+  --destructive: #cd2026; /* red for errors:contentReference[oaicite:11]{index=11} */
 
   /* muted and borders */
-  --muted: #E1F3F8;                 /* very light blue:contentReference[oaicite:12]{index=12} */
-  --muted-foreground: #667B83;
-  --border: #DCE4EF;               /* cool light blue border:contentReference[oaicite:13]{index=13} */
-  --input: #FFFFFF;
-  --ring: #00A6D2;                /* medium blue focus ring:contentReference[oaicite:14]{index=14} */
+  --muted: #e1f3f8; /* very light blue:contentReference[oaicite:12]{index=12} */
+  --muted-foreground: #667b83;
+  --border: #dce4ef; /* cool light blue border:contentReference[oaicite:13]{index=13} */
+  --input: #ffffff;
+  --ring: #00a6d2; /* medium blue focus ring:contentReference[oaicite:14]{index=14} */
 
   /* sidebar */
-  --sidebar: #112E51;               /* darkest blue for sidebar:contentReference[oaicite:15]{index=15} */
-  --sidebar-foreground: #F4F4F4;
+  --sidebar: #112e51; /* darkest blue for sidebar:contentReference[oaicite:15]{index=15} */
+  --sidebar-foreground: #f4f4f4;
   --sidebar-primary: #205493;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #9BDAF1;
-  --sidebar-accent-foreground: #112E51;
-  --sidebar-border: #DCE4EF;
-  --sidebar-ring: #00A6D2;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #9bdaf1;
+  --sidebar-accent-foreground: #112e51;
+  --sidebar-border: #dce4ef;
+  --sidebar-ring: #00a6d2;
 }
 
 .font-special {
-  font-family: 'Cinzel Variable', serif;
+  font-family: "Cinzel Variable", serif;
 }
 
 body {
@@ -107,33 +107,33 @@ body {
 
 .dark {
   /* dark mode values: invert light surfaces while keeping contrast high */
-  --background: #1B1E29;            /* dark neutral background */
-  --foreground: #E1F3F8;            /* pale blue text */
-  --card: #24344E;
-  --card-foreground: #E1F3F8;
-  --popover: #24344E;
-  --popover-foreground: #E1F3F8;
+  --background: #1b1e29; /* dark neutral background */
+  --foreground: #e1f3f8; /* pale blue text */
+  --card: #24344e;
+  --card-foreground: #e1f3f8;
+  --popover: #24344e;
+  --popover-foreground: #e1f3f8;
 
   --primary: #205493;
-  --primary-foreground: #E1F3F8;
-  --secondary: #E1F3F8;
-  --secondary-foreground: #1B1E29;
-  --accent: #9BDAF1;
-  --accent-foreground: #1B1E29;
-  --destructive: #CD2026;
+  --primary-foreground: #e1f3f8;
+  --secondary: #e1f3f8;
+  --secondary-foreground: #1b1e29;
+  --accent: #9bdaf1;
+  --accent-foreground: #1b1e29;
+  --destructive: #cd2026;
 
-  --muted: #24344E;
-  --muted-foreground: #9BDAF1;
-  --border: #112E51;
-  --input: #112E51;
+  --muted: #24344e;
+  --muted-foreground: #9bdaf1;
+  --border: #112e51;
+  --input: #112e51;
   --ring: #205493;
 
-  --sidebar: #112E51;
-  --sidebar-foreground: #E1F3F8;
+  --sidebar: #112e51;
+  --sidebar-foreground: #e1f3f8;
   --sidebar-primary: #205493;
-  --sidebar-primary-foreground: #E1F3F8;
-  --sidebar-accent: #9BDAF1;
-  --sidebar-accent-foreground: #1B1E29;
-  --sidebar-border: #112E51;
+  --sidebar-primary-foreground: #e1f3f8;
+  --sidebar-accent: #9bdaf1;
+  --sidebar-accent-foreground: #1b1e29;
+  --sidebar-border: #112e51;
   --sidebar-ring: #205493;
 }

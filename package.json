@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "predev": "npm run types",
-    "prebuild": "npm run types",
+    "predev": "bun run types",
+    "prebuild": "bun run types",
     "lint": "eslint .",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",

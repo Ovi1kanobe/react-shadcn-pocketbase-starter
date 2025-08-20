@@ -31,23 +31,26 @@ export function DarkModeProvider({ children }: DarkModeProviderProps) {
   }, []);
 
   // Update user preference in database
-  const updateUserPreference = useCallback((darkMode: boolean) => {
-    if (user) {
-      updateUser(
-        { darkMode },
-        (error) => {
+  const updateUserPreference = useCallback(
+    (darkMode: boolean) => {
+      if (user) {
+        updateUser({ darkMode }, (error) => {
           console.error("Failed to save dark mode preference:", error);
-        }
-      );
-    }
-  }, [user, updateUser]);
+        });
+      }
+    },
+    [user, updateUser]
+  );
 
   // Set dark mode with all side effects
-  const setDarkMode = useCallback((enabled: boolean) => {
-    applyDarkMode(enabled);
-    saveToLocalStorage(enabled);
-    updateUserPreference(enabled);
-  }, [applyDarkMode, saveToLocalStorage, updateUserPreference]);
+  const setDarkMode = useCallback(
+    (enabled: boolean) => {
+      applyDarkMode(enabled);
+      saveToLocalStorage(enabled);
+      updateUserPreference(enabled);
+    },
+    [applyDarkMode, saveToLocalStorage, updateUserPreference]
+  );
 
   // Toggle dark mode
   const toggleDarkMode = useCallback(() => {
@@ -105,36 +108,35 @@ export function DarkModeProvider({ children }: DarkModeProviderProps) {
       const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
       const handleSystemThemeChange = (e: MediaQueryListEvent) => {
         // Only auto-update if user hasn't explicitly set a preference
-        const hasUserPreference = user?.darkMode !== undefined || 
-          localStorage.getItem("darkMode") !== null;
-        
+        const hasUserPreference =
+          user?.darkMode !== undefined || localStorage.getItem("darkMode") !== null;
+
         if (!hasUserPreference) {
           applyDarkMode(e.matches);
           saveToLocalStorage(e.matches);
-          
+
           // Update database if user is logged in
           if (user) {
             updateUserPreference(e.matches);
           }
         }
       };
-      
+
       mediaQuery.addEventListener("change", handleSystemThemeChange);
       return () => mediaQuery.removeEventListener("change", handleSystemThemeChange);
     }
   }, [user, applyDarkMode, saveToLocalStorage, updateUserPreference]);
 
-  const contextValue: DarkModeContextType = useMemo(() => ({
-    isDarkMode,
-    toggleDarkMode,
-    setDarkMode,
-  }), [isDarkMode, toggleDarkMode, setDarkMode]);
-
-  return (
-    <DarkModeContext.Provider value={contextValue}>
-      {children}
-    </DarkModeContext.Provider>
+  const contextValue: DarkModeContextType = useMemo(
+    () => ({
+      isDarkMode,
+      toggleDarkMode,
+      setDarkMode,
+    }),
+    [isDarkMode, toggleDarkMode, setDarkMode]
   );
+
+  return <DarkModeContext.Provider value={contextValue}>{children}</DarkModeContext.Provider>;
 }
 
 export { DarkModeContext };

@@ -54,8 +54,7 @@ function AdminCollections() {
         </div>
       </div>
       <Separator />
-      <div className="w-full pt-4">
-      </div>
+      <div className="w-full pt-4"></div>
     </PageContainer>
   );
 }
